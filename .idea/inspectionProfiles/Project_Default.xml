@@ -1,0 +1,41 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="alembic" />
+          <option value="certifi" />
+          <option value="dnspython" />
+          <option value="email-validator" />
+          <option value="fastapi-cli" />
+          <option value="fastapi-cloud-cli" />
+          <option value="greenlet" />
+          <option value="httpcore" />
+          <option value="httptools" />
+          <option value="httpx" />
+          <option value="Jinja2" />
+          <option value="Mako" />
+          <option value="markdown-it-py" />
+          <option value="MarkupSafe" />
+          <option value="mdurl" />
+          <option value="Pygments" />
+          <option value="python-dotenv" />
+          <option value="python-multipart" />
+          <option value="PyYAML" />
+          <option value="rich" />
+          <option value="rich-toolkit" />
+          <option value="rignore" />
+          <option value="sentry-sdk" />
+          <option value="shellingham" />
+          <option value="SQLAlchemy" />
+          <option value="typer" />
+          <option value="urllib3" />
+          <option value="watchfiles" />
+          <option value="websockets" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
