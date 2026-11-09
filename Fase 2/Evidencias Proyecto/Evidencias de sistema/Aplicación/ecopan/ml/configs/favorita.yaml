@@ -1,0 +1,106 @@
+# Single source of truth for a run. `train.py` snapshots this next to the model artifact, so any
+# number in RESULTS.md is reproducible from (git SHA + this file).
+
+dataset:
+  name: favorita
+  raw_dir: data/raw
+  processed_path: data/processed/favorita_daily.parquet
+
+  # Scope. `null` = everything. Narrow these for fast iteration; the run behind RESULTS.md records
+  # whatever was actually used, because a metric on a subset is a different claim from one on the
+  # full set.
+  families: null
+  stores: null
+  # Row cap applied while reading train.csv (~125M rows). null for the real run.
+  nrows: null
+
+# Temporal splits (plan 08 §2.5). No shuffling: train < validation < test, in time order.
+#
+# Favorita runs 2013-01-01 .. 2017-08-15. The last ~8 weeks are held out as test and touched exactly
+# once, at the very end. The ~4 weeks before that are validation, which absorbs every decision made
+# by looking at a score: early stopping, hyperparameters, objective choice, and the reference
+# baseline + threshold selection.
+split:
+  train_end: "2017-05-31"
+  val_end: "2017-06-30"
+  test_end: "2017-08-15"
+
+# Rolling-origin protocol (plan 08 §3).
+#
+# horizon 7 matches the operational question ("how much do I bake this week?") and is the longest
+# horizon at which the weekly lags stay observed rather than predicted -- see models/predict.py.
+# step 7 makes the origins non-overlapping, so every test day is scored exactly once and the pooled
+# metric does not double-count.
+evaluation:
+  horizon: 7
+  step: 7
+
+features:
+  lags: [1, 7, 14, 28]
+  rolling_windows: [7, 28]
+  rolling_std_windows: [7]
+  use_calendar: true
+  use_holidays: true
+  # Off by default: only safe when the promo calendar is known for the whole horizon at serving
+  # time. Enabling it in training while the service cannot supply it is textbook training/serving
+  # skew (features/build.py explains).
+  use_promo: false
+
+model:
+  # regression_l1 targets the conditional median -- the right choice for right-skewed demand, and
+  # it aligns the training loss with the reported MAE. Swap to "tweedie" (with tweedie_variance_power
+  # around 1.1-1.5) to compare on sparse series; record whichever wins on VALIDATION in RESULTS.md.
+  objective: regression_l1
+  metric: [l1, rmse]
+  learning_rate: 0.05
+  num_leaves: 63
+  min_data_in_leaf: 100
+  feature_fraction: 0.8
+  bagging_fraction: 0.8
+  bagging_freq: 1
+  lambda_l2: 1.0
+  seed: 42
+  # 20000 is a ceiling, not a target: early stopping is meant to pick the iteration and the previous
+  # 3000 cap pre-empted it, stopping at 2999/3000 with validation L1 still falling ~1.45 per 1000
+  # iterations. A cap that selects the model is not a cap, it is an untested hyperparameter.
+  # Patience 200 rather than 100 because the curve is smooth and slow in that region, where a short
+  # patience risks halting on noise while the trend is still descending.
+  num_boost_round: 20000
+  early_stopping_rounds: 200
+
+artifacts:
+  dir: data/artifacts
+  plots_dir: reports/plots
+
+# Walk-forward robustness study (`make backtest`). Answers "is the headline gain a property of the
+# model, or of the six weeks that happened to land in the test window?" -- the question a single
+# split cannot answer, however many rolling origins it contains, because all of its origins sit at
+# one position in the year.
+#
+# Each fold retrains from scratch on data strictly before its own `train_end`. Retraining is not
+# optional: the shipped model was trained on data that *includes* these windows, so scoring them
+# with it would be leakage, and a flattering kind.
+#
+# Every `score_end` is strictly before 2017-07-01, the reserved test window. A robustness check that
+# spends the holdout to prove the holdout was fine is not a robustness check. `cmd_backtest` asserts
+# this rather than trusting the values below.
+backtest:
+  windows:
+    # Southern-hemisphere spring, no major holidays.
+    - {train_end: "2016-08-01", val_end: "2016-08-31", score_start: "2016-09-01", score_end: "2016-10-12"}
+    # Christmas / New Year: the hardest seasonal position in the dataset, and the one most likely to
+    # break a model that has merely memorised a weekly rhythm.
+    - {train_end: "2016-10-31", val_end: "2016-11-30", score_start: "2016-12-01", score_end: "2017-01-11"}
+    # Post-holiday trough plus Carnival.
+    - {train_end: "2017-01-31", val_end: "2017-02-28", score_start: "2017-03-01", score_end: "2017-04-11"}
+    # Immediately before the reserved window -- the closest analogue to the headline fold.
+    - {train_end: "2017-03-31", val_end: "2017-04-30", score_start: "2017-05-01", score_end: "2017-06-11"}
+
+# Set ONCE, from the baseline run on validation, BEFORE any model tuning (plan 08 §3 step 2).
+# The git timestamp of that commit is the anti-target-shopping evidence.
+threshold:
+  # Fractional improvement the model must achieve over the reference baseline on the untouched
+  # test window, on BOTH pooled MAE and pooled WAPE.
+  min_relative_improvement: 0.10
+  # Filled in by `make baselines` -- whichever baseline wins on validation.
+  reference_baseline: baseline-swlw

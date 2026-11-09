@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- The same binary is the till and the baker's phone (01 §1), so this screen must not name
+         one of them. "Caja"/"este computador" wording lived here and read as nonsense on a phone. -->
+    <string name="auth_app_name">Ecopan</string>
+
+    <string name="auth_enroll_kicker">REGISTRO DE DISPOSITIVO</string>
+    <string name="auth_enroll_title">Registrar este dispositivo</string>
+    <string name="auth_enroll_subtitle">Conecta este dispositivo a tu panadería una sola vez. Tras el registro queda enlazado y funciona completamente sin conexión.</string>
+    <string name="auth_enroll_tenant_label">Panadería (identificador)</string>
+    <string name="auth_enroll_username_label">Usuario</string>
+    <string name="auth_enroll_password_label">Contraseña</string>
+    <string name="auth_enroll_device_name_label">Nombre del dispositivo</string>
+    <string name="auth_enroll_device_name_hint">Identifica este dispositivo en la administración.</string>
+    <string name="auth_enroll_submit">Registrar dispositivo</string>
+    <string name="auth_enroll_footer">Se requiere internet solo para este primer paso. Una vez registrado, el dispositivo queda enlazado indefinidamente y funciona sin conexión.</string>
+    <string name="auth_enroll_error_invalid_credentials">No pudimos iniciar sesión. Revisa el identificador de la panadería, el usuario y la contraseña.</string>
+    <string name="auth_enroll_too_many_attempts">Demasiados intentos seguidos. Espera un minuto e intenta de nuevo.</string>
+    <string name="auth_enroll_needs_connection">Se requiere conexión a internet para registrar este dispositivo por primera vez. Conéctate e intenta de nuevo.</string>
+    <string name="auth_dev_quick_login_heading">Acceso rápido (solo desarrollo)</string>
+
+    <string name="auth_bootstrap_kicker">PREPARANDO TU TIENDA</string>
+    <string name="auth_bootstrap_subtitle">Estamos preparando tu catálogo y precios — esto ocurre solo una vez.</string>
+    <string name="auth_bootstrap_footer">No cierres la aplicación — este paso no se puede cancelar.</string>
+    <string name="auth_bootstrap_step_account">Cuenta y sesión</string>
+    <string name="auth_bootstrap_step_initial_sync">Sincronización inicial</string>
+    <string name="auth_bootstrap_note_done">listo</string>
+    <string name="auth_bootstrap_note_retrying">reintentando en segundo plano</string>
+    <!-- Spoken state of a bootstrap step. The icon column carries it visually; without these the
+         only cue is a tint, which a screen reader never announces. -->
+    <string name="auth_bootstrap_step_done">Completado</string>
+    <string name="auth_bootstrap_step_active">En curso</string>
+    <string name="auth_bootstrap_step_pending">Pendiente</string>
+    <string name="auth_pin_backspace_cd">Borrar último dígito</string>
+
+    <!-- The heading over the staff grid. The grid is the first thing you touch, so it says who
+         the screen is asking about rather than describing the PIN step below it. -->
+    <string name="auth_lock_staff_section">¿Quién está en la caja?</string>
+    <string name="auth_lock_choose_name_title">Elige tu nombre</string>
+    <string name="auth_lock_choose_name_sub">Luego ingresa tu PIN de 4 dígitos</string>
+    <string name="auth_lock_enter_pin_sub">Ingresa tu PIN de 4 dígitos</string>
+    <string name="auth_lock_entering_sub">Ingresando PIN…</string>
+    <string name="auth_lock_wrong_pin_title">PIN incorrecto</string>
+    <string name="auth_lock_wrong_pin_sub">PIN incorrecto — intenta de nuevo</string>
+    <string name="auth_lock_too_many_attempts">Demasiados intentos</string>
+    <string name="auth_lock_locked_sub">Bloqueado · reintenta en %1$s</string>
+    <string name="auth_lock_unsupported">El desbloqueo por PIN no está disponible en esta plataforma.</string>
+
+    <!-- Role names. The enum constants (CASHIER, BRANCH_MANAGER, ...) are an English wire/storage
+         detail; these are what the user picker actually shows. -->
+    <string name="auth_role_cashier">Cajero/a</string>
+    <string name="auth_role_baker">Panadero/a</string>
+    <string name="auth_role_branch_manager">Jefe/a de sucursal</string>
+    <string name="auth_role_general_manager">Gerente general</string>
+    <string name="auth_role_admin">Administrador/a</string>
+</resources>

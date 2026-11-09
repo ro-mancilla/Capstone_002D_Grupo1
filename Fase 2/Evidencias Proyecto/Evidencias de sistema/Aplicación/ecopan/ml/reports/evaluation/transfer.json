@@ -1,0 +1,156 @@
+{
+  "_note": "RESULTS.md section 4.7. Validation window only, shipped model, no retraining. Only the binding arm carries the pre-registered bar; others are diagnostic.",
+  "model_version": "lgbm-favorita",
+  "window": [
+    "2017-06-01",
+    "2017-06-30"
+  ],
+  "seed": 50,
+  "held_out_stores": [
+    20,
+    34,
+    4,
+    41,
+    42,
+    46,
+    49,
+    53,
+    6,
+    9
+  ],
+  "scale_factor": 500.0,
+  "reference_baseline": "baseline-swlw",
+  "threshold": 0.1,
+  "binding_arm": "D_unseen_rescaled",
+  "passed": false,
+  "arms": [
+    {
+      "arm": "A_control",
+      "unseen": false,
+      "scale": 1.0,
+      "binding": false,
+      "n_series": 325,
+      "scores": {
+        "baseline-swlw": {
+          "mae": 113.01350919990057,
+          "rmse": 410.7701076284005,
+          "wape": 0.1919682259061474,
+          "n": 8900,
+          "mae_d1": 89.07280786307354,
+          "wape_d1": 0.19702394624952285
+        },
+        "lgbm": {
+          "mae": 67.13547874898181,
+          "rmse": 254.72909444447532,
+          "wape": 0.11403839100337605,
+          "n": 8900,
+          "mae_d1": 50.679698086574646,
+          "wape_d1": 0.11210058772482918
+        }
+      },
+      "gains": {
+        "mae_gain": 0.40595173776763954,
+        "wape_gain": 0.4059517377676396,
+        "mae_gain_d1": 0.43103064445344974,
+        "wape_gain_d1": 0.4310306444534497
+      },
+      "clears_bar": true
+    },
+    {
+      "arm": "B_unseen_codes",
+      "unseen": true,
+      "scale": 1.0,
+      "binding": false,
+      "n_series": 325,
+      "scores": {
+        "baseline-swlw": {
+          "mae": 113.01350919990057,
+          "rmse": 410.7701076284005,
+          "wape": 0.1919682259061474,
+          "n": 8900,
+          "mae_d1": 89.07280786307354,
+          "wape_d1": 0.19702394624952285
+        },
+        "lgbm": {
+          "mae": 93.03304437979828,
+          "rmse": 355.1844797796467,
+          "wape": 0.15802879325380215,
+          "n": 8900,
+          "mae_d1": 62.30082929193595,
+          "wape_d1": 0.13780586394654087
+        }
+      },
+      "gains": {
+        "mae_gain": 0.17679713656851798,
+        "wape_gain": 0.17679713656851798,
+        "mae_gain_d1": 0.30056286776422947,
+        "wape_gain_d1": 0.3005628677642294
+      },
+      "clears_bar": true
+    },
+    {
+      "arm": "C_rescaled",
+      "unseen": false,
+      "scale": 500.0,
+      "binding": false,
+      "n_series": 325,
+      "scores": {
+        "baseline-swlw": {
+          "mae": 56506.754857918386,
+          "rmse": 205385.05377645444,
+          "wape": 0.1919682268039315,
+          "n": 8900,
+          "mae_d1": 44536.403531632335,
+          "wape_d1": 0.19702394453479935
+        },
+        "lgbm": {
+          "mae": 287225.4921547039,
+          "rmse": 811624.7613997273,
+          "wape": 0.9757801268267035,
+          "n": 8900,
+          "mae_d1": 219511.05954852936,
+          "wape_d1": 0.9710917674469737
+        }
+      },
+      "gains": {
+        "mae_gain": -4.083029327677884,
+        "wape_gain": -4.083029327677884,
+        "mae_gain_d1": -3.9288007594196483,
+        "wape_gain_d1": -3.9288007594196483
+      },
+      "clears_bar": false
+    },
+    {
+      "arm": "D_unseen_rescaled",
+      "unseen": true,
+      "scale": 500.0,
+      "binding": true,
+      "n_series": 325,
+      "scores": {
+        "baseline-swlw": {
+          "mae": 56506.754857918386,
+          "rmse": 205385.05377645444,
+          "wape": 0.1919682268039315,
+          "n": 8900,
+          "mae_d1": 44536.403531632335,
+          "wape_d1": 0.19702394453479935
+        },
+        "lgbm": {
+          "mae": 287088.6829858862,
+          "rmse": 811614.69556694,
+          "wape": 0.9753153502948625,
+          "n": 8900,
+          "mae_d1": 219450.2415085325,
+          "wape_d1": 0.9708227154088911
+        }
+      },
+      "gains": {
+        "mae_gain": -4.080608215915905,
+        "wape_gain": -4.080608215915907,
+        "mae_gain_d1": -3.9274351790140893,
+        "wape_gain_d1": -3.92743517901409
+      },
+      "clears_bar": false
+    }
+  ]
+}

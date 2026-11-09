@@ -1,0 +1,16 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Third-party libraries (Exposed SQL, Netty, kourier AMQPConnection frames) stay quiet. -->
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!-- Our own logs. -->
+    <logger name="com.f776" level="INFO"/>
+    <!-- Keep Ktor's startup banner ("Application started", "Responding at ..."). -->
+    <logger name="io.ktor" level="INFO"/>
+</configuration>

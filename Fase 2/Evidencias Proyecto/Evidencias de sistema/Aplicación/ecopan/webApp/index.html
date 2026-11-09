@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ecopan · Panel de gestión</title>
+    <script>
+      // Inline, blocking, pre-paint theme bootstrap -- avoids a flash of the wrong
+      // theme (FOUC) that would occur if this ran from the bundled React app instead.
+      // Three-state preference (light/dark/system) persisted under this key; see
+      // src/lib/theme.ts for the runtime counterpart the app uses after hydration.
+      ;(function () {
+        try {
+          var STORAGE_KEY = "ecopan-web-theme"
+          var stored = localStorage.getItem(STORAGE_KEY)
+          var systemPrefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches
+          var isDark = stored === "dark" || (stored !== "light" && systemPrefersDark)
+          document.documentElement.classList.toggle("dark", isDark)
+        } catch (e) {
+          // localStorage/matchMedia unavailable (privacy mode, old browser) -- fall
+          // back silently to the light theme baked into :root.
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

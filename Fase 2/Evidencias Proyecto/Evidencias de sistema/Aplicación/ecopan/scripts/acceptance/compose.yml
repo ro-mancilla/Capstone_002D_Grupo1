@@ -1,0 +1,26 @@
+# Overlay for the acceptance suite (scripts/acceptance/run.sh): the same services as docker-compose.yml,
+# on host ports that cannot collide with the developer's stack. Volumes are the compose project's own
+# (ecopan-acc_pgdata, ecopan-acc_azurite), never the dev stack's.
+services:
+  web:
+    ports: !override
+      - "18080:8080"
+    environment:
+      STORAGE_PUBLIC_BLOB_BASE_URL: http://localhost:11000/devstoreaccount1
+      # The suite plays the proxy: it sends X-Forwarded-For to stand in for distinct clients (#129).
+      BEHIND_TRUSTED_PROXY: "true"
+      # The e2e runner (scripts/e2e/run.sh) serves the built dashboard here.
+      CORS_ALLOWED_ORIGINS: http://localhost:14173
+  ml:
+    ports: !override
+      - "18000:8000"
+  db:
+    ports: !override
+      - "15432:5432"
+  rabbitmq:
+    ports: !override
+      - "15673:5672"
+      - "25672:15672"
+  storage:
+    ports: !override
+      - "11000:10000"

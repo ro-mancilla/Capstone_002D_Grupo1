@@ -1,0 +1,135 @@
+{
+  "revision": 4,
+  "tenant": {
+    "id": "5c1f0a4a-2b6a-4d3e-9c6a-6a3f0b8e7d21",
+    "slug": "unipan",
+    "name": "UniPan",
+    "currencyCode": "CLP",
+    "enabledModules": ["POS_SALES", "MULTI_BRANCH_ROLES", "ANALYTICS_DASHBOARD"]
+  },
+  "branches": [
+    { "id": "8f2c6b1a-4e5d-4a9c-8b3e-1d2f3a4b5c6d", "name": "Norte" },
+    { "id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d", "name": "Centro" },
+    { "id": "9d8c7b6a-5f4e-4d3c-9b2a-1c0d9e8f7a6b", "name": "Sur" }
+  ],
+  "users": [
+    {
+      "id": "2e3f4a5b-6c7d-4e8f-9a0b-1c2d3e4f5a6b",
+      "branchId": null,
+      "username": "unipan-gm",
+      "password": "unipan-gm-1",
+      "pin": "6001",
+      "displayName": "Gabriela General Manager",
+      "role": "GENERAL_MANAGER"
+    },
+    {
+      "id": "3f4a5b6c-7d8e-4f9a-0b1c-2d3e4f5a6b7c",
+      "branchId": "8f2c6b1a-4e5d-4a9c-8b3e-1d2f3a4b5c6d",
+      "username": "unipan-bm-norte",
+      "password": "unipan-bm-norte-1",
+      "pin": "6002",
+      "displayName": "Nico Branch Manager (Norte)",
+      "role": "BRANCH_MANAGER"
+    },
+    {
+      "id": "4a5b6c7d-8e9f-4a0b-1c2d-3e4f5a6b7c8d",
+      "branchId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "username": "unipan-bm-centro",
+      "password": "unipan-bm-centro-1",
+      "pin": "6003",
+      "displayName": "Carla Branch Manager (Centro)",
+      "role": "BRANCH_MANAGER"
+    },
+    {
+      "id": "5b6c7d8e-9f0a-4b1c-2d3e-4f5a6b7c8d9e",
+      "branchId": "9d8c7b6a-5f4e-4d3c-9b2a-1c0d9e8f7a6b",
+      "username": "unipan-bm-sur",
+      "password": "unipan-bm-sur-1",
+      "pin": "6004",
+      "displayName": "Sole Branch Manager (Sur)",
+      "role": "BRANCH_MANAGER"
+    },
+    {
+      "id": "6c7d8e9f-0a1b-4c2d-3e4f-5a6b7c8d9e0f",
+      "branchId": "8f2c6b1a-4e5d-4a9c-8b3e-1d2f3a4b5c6d",
+      "username": "unipan-caja-norte",
+      "password": "unipan-caja-norte-1",
+      "pin": "6005",
+      "displayName": "Caja Norte",
+      "role": "CASHIER"
+    },
+    {
+      "id": "7d8e9f0a-1b2c-4d3e-4f5a-6b7c8d9e0f1a",
+      "branchId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "username": "unipan-caja-centro",
+      "password": "unipan-caja-centro-1",
+      "pin": "6006",
+      "displayName": "Caja Centro",
+      "role": "CASHIER"
+    },
+    {
+      "id": "8e9f0a1b-2c3d-4e4f-5a6b-7c8d9e0f1a2b",
+      "branchId": "9d8c7b6a-5f4e-4d3c-9b2a-1c0d9e8f7a6b",
+      "username": "unipan-caja-sur",
+      "password": "unipan-caja-sur-1",
+      "pin": "6007",
+      "displayName": "Caja Sur",
+      "role": "CASHIER"
+    },
+    {
+      "id": "9f0a1b2c-3d4e-4f5a-6b7c-8d9e0f1a2b3c",
+      "branchId": null,
+      "username": "unipan-admin",
+      "password": "unipan-admin-1",
+      "pin": "6008",
+      "displayName": "Unipan Admin",
+      "role": "ADMIN"
+    }
+  ],
+  "ingredients": [],
+  "products": [
+    {
+      "id": "0a1b2c3d-4e5f-4a6b-7c8d-9e0f1a2b3c4d",
+      "name": "Pan de Molde",
+      "productType": "Almacén",
+      "soldBy": "UNIT",
+      "priceMinor": 2200,
+      "barcode": "7801234500013",
+      "openingCounts": [
+        { "branchId": "8f2c6b1a-4e5d-4a9c-8b3e-1d2f3a4b5c6d", "units": 40 },
+        { "branchId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d", "units": 30 },
+        { "branchId": "9d8c7b6a-5f4e-4d3c-9b2a-1c0d9e8f7a6b", "units": 20 }
+      ]
+    },
+    {
+      "id": "1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e",
+      "name": "Bagel",
+      "productType": "Pan",
+      "soldBy": "UNIT",
+      "priceMinor": 900,
+      "barcode": "7801234500020"
+    },
+    {
+      "id": "2c3d4e5f-6a7b-4c8d-9e0f-1a2b3c4d5e6f",
+      "name": "Cookie",
+      "productType": "Almacén",
+      "soldBy": "UNIT",
+      "priceMinor": 700,
+      "barcode": "7801234500037",
+      "openingCounts": [
+        { "branchId": "8f2c6b1a-4e5d-4a9c-8b3e-1d2f3a4b5c6d", "units": 40 },
+        { "branchId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d", "units": 30 },
+        { "branchId": "9d8c7b6a-5f4e-4d3c-9b2a-1c0d9e8f7a6b", "units": 20 }
+      ]
+    },
+    {
+      "id": "3d4e5f6a-7b8c-4d9e-0f1a-2b3c4d5e6f7a",
+      "name": "Sandwich",
+      "productType": "Pastelería",
+      "soldBy": "UNIT",
+      "priceMinor": 2600,
+      "barcode": "7801234500044"
+    }
+  ],
+  "formulas": []
+}

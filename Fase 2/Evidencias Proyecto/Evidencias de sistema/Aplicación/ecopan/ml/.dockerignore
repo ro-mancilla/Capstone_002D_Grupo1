@@ -1,0 +1,20 @@
+# The build context is `ml/`. Without this file it would include data/raw (~5 GB of Favorita CSVs),
+# the processed parquet and a local .venv, none of which the image uses -- and `az acr build` uploads
+# the whole context on every deploy.
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+reports
+tests
+
+data/raw
+data/processed
+data/demo
+
+# Allowlist: only the three files the service loads ship in the image (model.txt, metadata.json,
+# encoding.json). Everything else under data/artifacts is evaluation output or superseded snapshots.
+data/artifacts/*
+!data/artifacts/model.txt
+!data/artifacts/metadata.json
+!data/artifacts/encoding.json

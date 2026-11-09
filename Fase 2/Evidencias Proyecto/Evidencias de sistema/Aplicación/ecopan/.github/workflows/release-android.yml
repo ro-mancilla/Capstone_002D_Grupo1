@@ -1,0 +1,88 @@
+# Manual Android release build: signed, minified, pointed at a chosen backend, and checked.
+# workflow_dispatch only, like deploy.yml: a release is a decision, not a side effect of a push.
+#
+# Setup (once, by an owner), as repository secrets -- the keystore is never committed:
+#   ECOPAN_KEYSTORE_BASE64    base64 of the .jks   (base64 -i release.jks | pbcopy)
+#   ECOPAN_KEYSTORE_PASSWORD  ECOPAN_KEY_ALIAS  ECOPAN_KEY_PASSWORD
+# See docs/RELEASE.md. Until a real key exists, the throwaway one from scripts/make-demo-keystore.sh
+# exercises the whole pipeline (its APK proves the pipeline, nothing more).
+name: release-android
+
+on:
+  workflow_dispatch:
+    inputs:
+      backend_url:
+        description: Backend the app talks to, e.g. https://ecopan-app.azurewebsites.net
+        required: true
+      quick_login:
+        description: Keep the one-tap sign-in with the seeded demo passwords (off for anything real)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-android
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: jetbrains
+          java-version: |
+            17
+            21
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Restore the signing key
+        run: |
+          for v in ECOPAN_KEYSTORE_BASE64 ECOPAN_KEYSTORE_PASSWORD ECOPAN_KEY_ALIAS; do
+            [ -n "${!v}" ] || { echo "::error::repo secret $v is not set (see the header of this file)"; exit 1; }
+          done
+          umask 077
+          echo "$ECOPAN_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+          echo "ECOPAN_KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+        env:
+          ECOPAN_KEYSTORE_BASE64: ${{ secrets.ECOPAN_KEYSTORE_BASE64 }}
+          ECOPAN_KEYSTORE_PASSWORD: ${{ secrets.ECOPAN_KEYSTORE_PASSWORD }}
+          ECOPAN_KEY_ALIAS: ${{ secrets.ECOPAN_KEY_ALIAS }}
+
+      # checkReleaseConfiguration runs first and fails on a development backend address, an unset
+      # quick-login choice, or missing signing (requireSigning).
+      - name: Build the signed release APK and bundle
+        run: >
+          ./gradlew :android:app:assembleRelease :android:app:bundleRelease --console=plain
+          -Pecopan.backendUrl='${{ inputs.backend_url }}'
+          -Pecopan.devQuickLogin=${{ inputs.quick_login }}
+          -Pecopan.requireSigning=true
+        env:
+          ECOPAN_KEYSTORE_PASSWORD: ${{ secrets.ECOPAN_KEYSTORE_PASSWORD }}
+          ECOPAN_KEY_ALIAS: ${{ secrets.ECOPAN_KEY_ALIAS }}
+          ECOPAN_KEY_PASSWORD: ${{ secrets.ECOPAN_KEY_PASSWORD }}
+
+      - name: Check the artifact
+        run: scripts/verify-release.sh --apk android/app/build/outputs/apk/release/app-release.apk --expect-url '${{ inputs.backend_url }}'
+
+      - name: Keep the artifacts and the R8 mapping
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-release
+          path: |
+            android/app/build/outputs/apk/release/app-release.apk
+            android/app/build/outputs/bundle/release/app-release.aab
+            android/app/build/outputs/mapping/release/mapping.txt
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Remove the keystore
+        if: ${{ always() }}
+        run: rm -f "$RUNNER_TEMP/release.jks"

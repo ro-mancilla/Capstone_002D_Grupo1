@@ -1,0 +1,47 @@
+{
+  "_note": "Recomputed from the committed prediction parquets, not a re-scoring of the held-out window. Same predictions as RESULTS.md section 4.2.",
+  "family": "BREAD/BAKERY",
+  "reference_baseline": "baseline-swlw",
+  "per_estimator": [
+    {
+      "estimator": "baseline-swlw",
+      "n_rows": 2268,
+      "n_series": 54,
+      "mean_actual": 550.4811401367188,
+      "mae": 72.10475604748599,
+      "rmse": 103.93434550890292,
+      "wape": 0.13098497199685855,
+      "n": 2268
+    },
+    {
+      "estimator": "baseline-ma7",
+      "n_rows": 2268,
+      "n_series": 54,
+      "mean_actual": 550.4811401367188,
+      "mae": 101.17531946306717,
+      "rmse": 152.1796401853298,
+      "wape": 0.1837943446881009,
+      "n": 2268
+    },
+    {
+      "estimator": "lgbm-favorita",
+      "n_rows": 2268,
+      "n_series": 54,
+      "mean_actual": 550.4811401367188,
+      "mae": 51.9637185395521,
+      "rmse": 75.9120661642656,
+      "wape": 0.0943969107013321,
+      "n": 2268
+    }
+  ],
+  "gains_vs": {
+    "baseline-swlw": {
+      "wape_gain": 0.2793302219158694,
+      "mae_gain": 0.2793302219158695
+    },
+    "baseline-ma7": {
+      "wape_gain": 0.486399264016944,
+      "mae_gain": 0.4863992640169441
+    }
+  }
+}

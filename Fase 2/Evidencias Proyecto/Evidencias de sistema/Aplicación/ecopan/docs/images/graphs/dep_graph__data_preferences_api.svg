@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="137pt" height="44pt" viewBox="0 0 137 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h136.5V4z"/>
+        <g class="node">
+            <title>:data:preferences:api</title>
+            <path fill="#90ee90" stroke="#000" d="M128.5-36H0V0h128.5z"/>
+            <text xml:space="preserve" x="64.25" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:data:preferences:api</text>
+        </g>
+    </g>
+</svg>
