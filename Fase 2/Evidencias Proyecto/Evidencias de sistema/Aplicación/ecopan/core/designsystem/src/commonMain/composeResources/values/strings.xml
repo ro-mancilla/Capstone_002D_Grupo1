@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Spanish is the product language; there is no other locale (same convention as :core:ui). -->
+    <string name="close_notice">Cerrar aviso</string>
+    <string name="close_dialog">Cerrar</string>
+
+    <string name="status_success">Correcto</string>
+    <string name="status_warning">Atención</string>
+    <string name="status_danger">Error</string>
+    <string name="status_info">Información</string>
+    <string name="status_neutral">Sin estado</string>
+    <string name="status_simulated">Simulado</string>
+
+    <string name="sync_status_synced">Sincronizado</string>
+    <string name="sync_status_syncing">Sincronizando…</string>
+    <string name="sync_status_offline">Sin conexión</string>
+    <plurals name="sync_status_offline_pending">
+        <item quantity="one">Sin conexión · %1$d pendiente</item>
+        <item quantity="other">Sin conexión · %1$d pendientes</item>
+    </plurals>
+    <string name="sync_status_attention">Requiere atención</string>
+    <string name="sync_status_indicator_cd">Estado de sincronización</string>
+
+    <string name="stepper_decrease_cd">Disminuir cantidad</string>
+    <string name="stepper_increase_cd">Aumentar cantidad</string>
+
+    <string name="scale_stabilizing">Estabilizando…</string>
+    <string name="scale_stable">Estable</string>
+    <string name="scale_driver_real">Balanza</string>
+    <string name="scale_driver_manual">Manual</string>
+    <string name="scale_driver_simulated">Simulada</string>
+    <string name="scale_readout_cd">Peso %1$s %2$s, %3$s</string>
+
+    <string name="receipt_simulated">SIMULADO · no se imprimió en papel</string>
+
+    <string name="unapplied_discard">Descartar</string>
+    <string name="unapplied_apply">Aplicar y probar</string>
+
+    <string name="select_open_cd">Abrir lista de opciones</string>
+</resources>

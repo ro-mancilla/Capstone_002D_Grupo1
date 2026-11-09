@@ -1,0 +1,65 @@
+# Desktop installers built, installed and launched on the platform they are for (#117).
+# The packaged app is ProGuard-minified, and class-loading failures show only when it starts, never in
+# `:jvm:app:run`, so each job launches the installed app for 25 seconds and fails on a crash or on
+# class-loading errors in its output. Runs on pull requests that touch the desktop client, and by hand.
+name: desktop-installers
+
+on:
+  pull_request:
+    paths: ['jvm/**', 'build-logic/**', 'gradle/libs.versions.toml', '.github/workflows/desktop-installers.yml']
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux-deb:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with: { distribution: jetbrains, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build the .deb
+        run: ./gradlew :jvm:app:packageReleaseDeb --console=plain -Pecopan.allowLocalhostRelease=true -Pecopan.devQuickLogin=true
+      # Unpack instead of `dpkg -i`: the package's post-install step registers a desktop menu entry
+      # and fails on a headless runner ("No writable system menu directory"). The launch is the point.
+      - name: Unpack and launch
+        run: |
+          sudo apt-get install -y xvfb
+          dpkg -x jvm/app/build/compose/binaries/main-release/deb/*.deb "$RUNNER_TEMP/root"
+          launcher="$(ls "$RUNNER_TEMP"/root/opt/*/bin/* | head -1)"
+          echo "launching $launcher"
+          timeout 25 xvfb-run -a "$launcher" > launch.log 2>&1 || true
+          cat launch.log
+          if grep -Eq "ClassNotFoundException|NoClassDefFoundError|NoSuchMethodError|ServiceConfigurationError|Could not find or load main class" launch.log; then
+            echo "::error::class-loading errors on launch"; exit 1
+          fi
+
+  windows-msi:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with: { distribution: jetbrains, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build the .msi
+        shell: bash
+        run: ./gradlew :jvm:app:packageReleaseMsi --console=plain -Pecopan.allowLocalhostRelease=true -Pecopan.devQuickLogin=true
+      - name: Install and launch
+        shell: pwsh
+        run: |
+          $msi = Get-ChildItem jvm/app/build/compose/binaries/main-release/msi/*.msi | Select-Object -First 1
+          Start-Process msiexec -ArgumentList "/i `"$($msi.FullName)`" /qn" -Wait
+          $exe = Get-ChildItem "$env:ProgramFiles\EcoPan" -Filter EcoPan.exe -Recurse | Select-Object -First 1
+          Write-Host "launching $($exe.FullName)"
+          $p = Start-Process $exe.FullName -PassThru
+          Start-Sleep -Seconds 25
+          if ($p.HasExited) { Write-Error "EcoPan exited with code $($p.ExitCode) within 25 s"; exit 1 }
+          Stop-Process $p -Force

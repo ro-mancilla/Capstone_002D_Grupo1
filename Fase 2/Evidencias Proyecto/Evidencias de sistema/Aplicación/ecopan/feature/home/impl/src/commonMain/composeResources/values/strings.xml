@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="notes_title">Notas</string>
+    <string name="add_cd">Agregar</string>
+    <string name="no_notes_found_title">Aún no hay notas</string>
+    <string name="create_your_first_note_subtitle">Crea tu primera nota</string>
+    <string name="add_note_title">Nueva nota</string>
+    <string name="note_title_label">Título</string>
+    <string name="note_body_label">Contenido</string>
+    <string name="save_button">Guardar</string>
+    <string name="cancel_button">Cancelar</string>
+    <string name="delete_action">Eliminar</string>
+    <string name="remind_me_action">Recordarme</string>
+    <string name="pick_reminder_time_title">Recordar a las</string>
+    <string name="reminder_scheduled_message">Recordatorio programado para %1$s</string>
+    <string name="permission_denied_message">Permiso de recordatorio denegado</string>
+</resources>

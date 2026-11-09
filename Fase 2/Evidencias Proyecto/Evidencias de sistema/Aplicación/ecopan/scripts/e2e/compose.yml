@@ -1,0 +1,6 @@
+# Overlay for the e2e runner, on top of docker-compose.yml + scripts/acceptance/compose.yml.
+services:
+  web:
+    environment:
+      # One-minute access tokens, so a suite that stays signed in crosses a real refresh (#150).
+      ACCESS_TOKEN_TTL_MIN: "1"

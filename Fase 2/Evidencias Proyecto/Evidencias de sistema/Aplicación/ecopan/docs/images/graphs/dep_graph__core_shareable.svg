@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="44pt" viewBox="0 0 105 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h105V4z"/>
+        <g class="node">
+            <title>:core:shareable</title>
+            <path fill="#90ee90" stroke="#000" d="M97-36H0V0h97z"/>
+            <text xml:space="preserve" x="48.5" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:core:shareable</text>
+        </g>
+    </g>
+</svg>

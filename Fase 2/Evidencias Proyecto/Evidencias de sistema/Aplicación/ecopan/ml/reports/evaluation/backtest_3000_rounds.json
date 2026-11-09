@@ -1,0 +1,132 @@
+{
+  "_note": "Walk-forward robustness study. Separate from the pre-registered test-window claim in RESULTS.md section 4: different training cuts, different windows, so these absolute numbers are NOT comparable to section 4's. Only the per-fold gain over the same-fold baseline is the claim.",
+  "reference": "baseline-swlw",
+  "per_estimator": [
+    {
+      "window": "2016-09-01",
+      "estimator": "baseline-swlw",
+      "mae": 86.5900907925816,
+      "rmse": 457.00555865503503,
+      "wape": 0.18436349810572028,
+      "n": 69351
+    },
+    {
+      "window": "2016-09-01",
+      "estimator": "baseline-ma7",
+      "mae": 128.01698598358018,
+      "rmse": 574.6600368573962,
+      "wape": 0.2725676706982483,
+      "n": 69351
+    },
+    {
+      "window": "2016-09-01",
+      "estimator": "lgbm",
+      "mae": 59.79743023755956,
+      "rmse": 417.72355266585174,
+      "wape": 0.12731784105339852,
+      "n": 69351
+    },
+    {
+      "window": "2016-12-01",
+      "estimator": "baseline-swlw",
+      "mae": 190.04705466499797,
+      "rmse": 776.4244293000149,
+      "wape": 0.3408732301936348,
+      "n": 70623
+    },
+    {
+      "window": "2016-12-01",
+      "estimator": "baseline-ma7",
+      "mae": 177.67041969627795,
+      "rmse": 655.8697170108829,
+      "wape": 0.318674182972662,
+      "n": 70623
+    },
+    {
+      "window": "2016-12-01",
+      "estimator": "lgbm",
+      "mae": 124.53843426450632,
+      "rmse": 571.0046144961672,
+      "wape": 0.22337530274189776,
+      "n": 70623
+    },
+    {
+      "window": "2017-03-01",
+      "estimator": "baseline-swlw",
+      "mae": 107.29459843904183,
+      "rmse": 447.84991000140326,
+      "wape": 0.2048676021024234,
+      "n": 70374
+    },
+    {
+      "window": "2017-03-01",
+      "estimator": "baseline-ma7",
+      "mae": 136.7972996170901,
+      "rmse": 521.9109096143454,
+      "wape": 0.2611998661103362,
+      "n": 70374
+    },
+    {
+      "window": "2017-03-01",
+      "estimator": "lgbm",
+      "mae": 70.81232866307654,
+      "rmse": 314.5641028066771,
+      "wape": 0.13520859561942689,
+      "n": 70374
+    },
+    {
+      "window": "2017-05-01",
+      "estimator": "baseline-swlw",
+      "mae": 111.73340359027698,
+      "rmse": 440.76266655308376,
+      "wape": 0.21266690431265667,
+      "n": 71156
+    },
+    {
+      "window": "2017-05-01",
+      "estimator": "baseline-ma7",
+      "mae": 134.58454620730421,
+      "rmse": 490.70838832092727,
+      "wape": 0.256160448805318,
+      "n": 71156
+    },
+    {
+      "window": "2017-05-01",
+      "estimator": "lgbm",
+      "mae": 74.18443220153726,
+      "rmse": 308.5384507745878,
+      "wape": 0.1411983617929094,
+      "n": 71156
+    }
+  ],
+  "per_window_gain": [
+    {
+      "window": "2016-09-01",
+      "baseline_wape": 0.18436349810572028,
+      "model_wape": 0.12731784105339852,
+      "wape_gain": 0.3094194764063863,
+      "mae_gain": 0.30941947640638623
+    },
+    {
+      "window": "2016-12-01",
+      "baseline_wape": 0.3408732301936348,
+      "model_wape": 0.22337530274189776,
+      "wape_gain": 0.34469684634663667,
+      "mae_gain": 0.3446968463466366
+    },
+    {
+      "window": "2017-03-01",
+      "baseline_wape": 0.2048676021024234,
+      "model_wape": 0.13520859561942689,
+      "wape_gain": 0.3400196310599201,
+      "mae_gain": 0.34001963105992017
+    },
+    {
+      "window": "2017-05-01",
+      "baseline_wape": 0.21266690431265667,
+      "model_wape": 0.1411983617929094,
+      "wape_gain": 0.33605860183433295,
+      "mae_gain": 0.33605860183433295
+    }
+  ]
+}

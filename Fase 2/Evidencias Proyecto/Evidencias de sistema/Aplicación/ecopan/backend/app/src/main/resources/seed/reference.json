@@ -1,0 +1,203 @@
+{
+  "revision": 3,
+  "tenant": {
+    "id": "d9571e52-01f5-42dd-b27a-347d12dde4c5",
+    "slug": "reference",
+    "name": "Panadería El Sol",
+    "currencyCode": "CLP",
+    "enabledModules": ["POS_SALES", "INVENTORY_FORMULAS", "ANALYTICS_DASHBOARD", "MULTI_BRANCH_ROLES"]
+  },
+  "branches": [
+    { "id": "d7026124-76e6-4907-aaee-d497a08f908e", "name": "Sucursal Principal" },
+    { "id": "415d1773-e834-46dd-87ed-c42ad7f555da", "name": "Sucursal Providencia" }
+  ],
+  "users": [
+    {
+      "id": "c97b3300-d11f-49ad-b7b8-278a8331ea47",
+      "branchId": "d7026124-76e6-4907-aaee-d497a08f908e",
+      "username": "cajero",
+      "password": "cajero123",
+      "pin": "1111",
+      "displayName": "Camila Rojas",
+      "role": "CASHIER"
+    },
+    {
+      "id": "eca2f178-737e-4e93-876b-32daab4dfdfe",
+      "branchId": "d7026124-76e6-4907-aaee-d497a08f908e",
+      "username": "panadero",
+      "password": "panadero123",
+      "pin": "2222",
+      "displayName": "Benito Soto",
+      "role": "BAKER"
+    },
+    {
+      "id": "f6acd0a6-61df-48e0-8a8d-2827b8b6c660",
+      "branchId": "d7026124-76e6-4907-aaee-d497a08f908e",
+      "username": "jefelocal",
+      "password": "jefelocal123",
+      "pin": "3333",
+      "displayName": "Beatriz Alarcón",
+      "role": "BRANCH_MANAGER"
+    },
+    {
+      "id": "a6c6de63-667a-4b5d-93a7-1ab1e3533ec1",
+      "branchId": null,
+      "username": "gerente",
+      "password": "gerente123",
+      "pin": "4444",
+      "displayName": "Gabriela Núñez",
+      "role": "GENERAL_MANAGER"
+    },
+    {
+      "id": "40fa71e7-0768-4993-8f75-a7a103377410",
+      "branchId": null,
+      "username": "admin",
+      "password": "admin123",
+      "pin": "5555",
+      "displayName": "Alonso Díaz",
+      "role": "ADMIN"
+    }
+  ],
+  "ingredients": [
+    { "id": "21e4b18c-8112-42c1-a330-02443f7e43b5", "name": "Harina", "lowStockThresholdGrams": 20000 },
+    { "id": "20a9171f-27b5-4097-9025-5b61a82fc9c4", "name": "Agua", "lowStockThresholdGrams": null },
+    { "id": "ae89370c-0c18-41ed-9188-8afa1228ca7b", "name": "Sal", "lowStockThresholdGrams": 2000 },
+    { "id": "b2420510-e71d-4996-90c5-adafcbe12aef", "name": "Levadura", "lowStockThresholdGrams": 1000 },
+    { "id": "5f3c9a71-6d2e-4f18-9a04-1c7b8e2d4a63", "name": "Manteca", "lowStockThresholdGrams": 5000 },
+    { "id": "8b1d4e67-3a92-4c05-b7e8-2f6a9d0c5138", "name": "Azúcar", "lowStockThresholdGrams": 3000 }
+  ],
+  "products": [
+    {
+      "id": "7231d7c1-2298-4277-9692-e09f6e0f7281",
+      "name": "Marraqueta",
+      "productType": "Pan",
+      "soldBy": "WEIGHT",
+      "pricePerKgMinor": 2500,
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Pan_Batido_en_Vi%C3%B1a_del_Mar.jpg/960px-Pan_Batido_en_Vi%C3%B1a_del_Mar.jpg"
+    },
+    {
+      "id": "3c8f5a20-91b4-4d76-8e13-5a2c7f0b9d64",
+      "name": "Hallulla",
+      "productType": "Pan",
+      "soldBy": "WEIGHT",
+      "pricePerKgMinor": 2300,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Chilean_bread_%282%29.jpg"
+    },
+    {
+      "id": "6e4b1c93-2d75-48af-9c02-7b3e8a1f5d60",
+      "name": "Pan Amasado",
+      "productType": "Pan",
+      "soldBy": "WEIGHT",
+      "pricePerKgMinor": 2800,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/70/Pan_Amasado.JPG"
+    },
+    {
+      "id": "ac625afb-90d3-48c7-b174-3f143f5d9bf6",
+      "name": "Empanada de Pino",
+      "productType": "Pastelería",
+      "soldBy": "UNIT",
+      "priceMinor": 1200,
+      "barcode": "7801111100015",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Empanada%2C_flaky_pastry_perfection.jpg/960px-Empanada%2C_flaky_pastry_perfection.jpg"
+    },
+    {
+      "id": "9d2a7f14-8c36-4e59-b071-4a8d3c6b2e97",
+      "name": "Berlín",
+      "productType": "Pastelería",
+      "soldBy": "UNIT",
+      "priceMinor": 900,
+      "barcode": "7801111100022",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/BerlinerPfannkuchenVarianten.jpg/960px-BerlinerPfannkuchenVarianten.jpg"
+    },
+    {
+      "id": "b7e1c2d4-5a36-4f80-9c1e-3d4a5b6c7e01",
+      "name": "Bebida Cola 500 ml",
+      "productType": "Almacén",
+      "soldBy": "UNIT",
+      "priceMinor": 1500,
+      "barcode": "7802222200015",
+      "lowStockThresholdUnits": 3,
+      "openingCounts": [
+        { "branchId": "d7026124-76e6-4907-aaee-d497a08f908e", "units": 5 },
+        { "branchId": "415d1773-e834-46dd-87ed-c42ad7f555da", "units": 8 }
+      ]
+    },
+    {
+      "id": "b7e1c2d4-5a36-4f80-9c1e-3d4a5b6c7e02",
+      "name": "Agua Mineral 500 ml",
+      "productType": "Almacén",
+      "soldBy": "UNIT",
+      "priceMinor": 800,
+      "barcode": "7802222200022",
+      "lowStockThresholdUnits": 4,
+      "openingCounts": [
+        { "branchId": "d7026124-76e6-4907-aaee-d497a08f908e", "units": 3 },
+        { "branchId": "415d1773-e834-46dd-87ed-c42ad7f555da", "units": 12 }
+      ]
+    },
+    {
+      "id": "b7e1c2d4-5a36-4f80-9c1e-3d4a5b6c7e03",
+      "name": "Galletas Soda (paquete)",
+      "productType": "Almacén",
+      "soldBy": "UNIT",
+      "priceMinor": 900,
+      "barcode": "7802222200039",
+      "lowStockThresholdUnits": 5,
+      "openingCounts": [
+        { "branchId": "d7026124-76e6-4907-aaee-d497a08f908e", "units": 20 },
+        { "branchId": "415d1773-e834-46dd-87ed-c42ad7f555da", "units": 15 }
+      ]
+    }
+  ],
+  "formulas": [
+    {
+      "productId": "7231d7c1-2298-4277-9692-e09f6e0f7281",
+      "lines": [
+        { "ingredientId": "21e4b18c-8112-42c1-a330-02443f7e43b5", "basisPoints": 10000 },
+        { "ingredientId": "20a9171f-27b5-4097-9025-5b61a82fc9c4", "basisPoints": 6500 },
+        { "ingredientId": "ae89370c-0c18-41ed-9188-8afa1228ca7b", "basisPoints": 200 },
+        { "ingredientId": "b2420510-e71d-4996-90c5-adafcbe12aef", "basisPoints": 100 }
+      ]
+    },
+    {
+      "productId": "3c8f5a20-91b4-4d76-8e13-5a2c7f0b9d64",
+      "lines": [
+        { "ingredientId": "21e4b18c-8112-42c1-a330-02443f7e43b5", "basisPoints": 10000 },
+        { "ingredientId": "20a9171f-27b5-4097-9025-5b61a82fc9c4", "basisPoints": 5000 },
+        { "ingredientId": "ae89370c-0c18-41ed-9188-8afa1228ca7b", "basisPoints": 200 },
+        { "ingredientId": "b2420510-e71d-4996-90c5-adafcbe12aef", "basisPoints": 100 },
+        { "ingredientId": "5f3c9a71-6d2e-4f18-9a04-1c7b8e2d4a63", "basisPoints": 1200 }
+      ]
+    },
+    {
+      "productId": "6e4b1c93-2d75-48af-9c02-7b3e8a1f5d60",
+      "lines": [
+        { "ingredientId": "21e4b18c-8112-42c1-a330-02443f7e43b5", "basisPoints": 10000 },
+        { "ingredientId": "20a9171f-27b5-4097-9025-5b61a82fc9c4", "basisPoints": 5500 },
+        { "ingredientId": "5f3c9a71-6d2e-4f18-9a04-1c7b8e2d4a63", "basisPoints": 1000 },
+        { "ingredientId": "ae89370c-0c18-41ed-9188-8afa1228ca7b", "basisPoints": 200 },
+        { "ingredientId": "b2420510-e71d-4996-90c5-adafcbe12aef", "basisPoints": 150 }
+      ]
+    },
+    {
+      "productId": "ac625afb-90d3-48c7-b174-3f143f5d9bf6",
+      "lines": [
+        { "ingredientId": "21e4b18c-8112-42c1-a330-02443f7e43b5", "basisPoints": 10000 },
+        { "ingredientId": "20a9171f-27b5-4097-9025-5b61a82fc9c4", "basisPoints": 4500 },
+        { "ingredientId": "5f3c9a71-6d2e-4f18-9a04-1c7b8e2d4a63", "basisPoints": 2000 },
+        { "ingredientId": "ae89370c-0c18-41ed-9188-8afa1228ca7b", "basisPoints": 150 }
+      ]
+    },
+    {
+      "productId": "9d2a7f14-8c36-4e59-b071-4a8d3c6b2e97",
+      "lines": [
+        { "ingredientId": "21e4b18c-8112-42c1-a330-02443f7e43b5", "basisPoints": 10000 },
+        { "ingredientId": "20a9171f-27b5-4097-9025-5b61a82fc9c4", "basisPoints": 5000 },
+        { "ingredientId": "8b1d4e67-3a92-4c05-b7e8-2f6a9d0c5138", "basisPoints": 1500 },
+        { "ingredientId": "5f3c9a71-6d2e-4f18-9a04-1c7b8e2d4a63", "basisPoints": 800 },
+        { "ingredientId": "b2420510-e71d-4996-90c5-adafcbe12aef", "basisPoints": 400 },
+        { "ingredientId": "ae89370c-0c18-41ed-9188-8afa1228ca7b", "basisPoints": 100 }
+      ]
+    }
+  ]
+}

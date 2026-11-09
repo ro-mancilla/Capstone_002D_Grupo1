@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="344pt" viewBox="0 0 768 344">
+    <g class="graph" transform="translate(4 340)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-344h768V4z"/>
+        <g class="node">
+            <title>:composeApp:feature:settings:impl</title>
+            <path fill="#90ee90" stroke="#000" d="M207.25-236H0v36h207.25z"/>
+            <text xml:space="preserve" x="103.62" y="-212.57" font-family="Times,serif" font-size="14" text-anchor="middle">:composeApp:feature:settings:impl</text>
+        </g>
+        <g class="node">
+            <title>:core:ui</title>
+            <path fill="#add8e6" stroke="#000" d="M731.88-336h-57.26v36h57.26z"/>
+            <text xml:space="preserve" x="703.25" y="-312.57" font-family="Times,serif" font-size="14" text-anchor="middle">:core:ui</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:feature:settings:impl-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M127.51-236.17c26.23-19.62 71.34-49.82 115.74-62.83 150.09-43.99 339.58-31.73 420.03-23.59"/>
+            <path stroke="#000" d="m663.26-326.11 9.57 4.53-10.31 2.43z"/>
+        </g>
+        <g class="node">
+            <title>:composeApp:core:navigation</title>
+            <path fill="#add8e6" stroke="#000" d="M432.12-290h-179.5v36h179.5z"/>
+            <text xml:space="preserve" x="342.38" y="-266.57" font-family="Times,serif" font-size="14" text-anchor="middle">:composeApp:core:navigation</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:feature:settings:impl-&gt;:composeApp:core:navigation</title>
+            <path fill="none" stroke="#000" d="M185.44-236.43c20.65-4.71 42.99-9.81 64.15-14.63"/>
+            <path stroke="#000" d="m248.52-254.41 10.53 1.19-8.97 5.63z"/>
+        </g>
+        <g class="node">
+            <title>:composeApp:feature:settings:api</title>
+            <path fill="#add8e6" stroke="#000" d="M441.5-236H243.25v36H441.5z"/>
+            <text xml:space="preserve" x="342.38" y="-212.57" font-family="Times,serif" font-size="14" text-anchor="middle">:composeApp:feature:settings:api</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:feature:settings:impl-&gt;:composeApp:feature:settings:api</title>
+            <path fill="none" stroke="#000" d="M207.43-218h24.06"/>
+            <path stroke="#000" d="m231.26-221.5 10 3.5-10 3.5z"/>
+        </g>
+        <g class="node">
+            <title>:data:preferences:impl</title>
+            <path fill="#add8e6" stroke="#000" d="M411.12-182h-137.5v36h137.5z"/>
+            <text xml:space="preserve" x="342.38" y="-158.57" font-family="Times,serif" font-size="14" text-anchor="middle">:data:preferences:impl</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:feature:settings:impl-&gt;:data:preferences:impl</title>
+            <path fill="none" stroke="#000" d="M185.44-199.57c24.74 5.65 51.93 11.85 76.57 17.47"/>
+            <path stroke="#000" d="m262.69-185.54 8.97 5.64-10.52 1.19z"/>
+        </g>
+        <g class="node">
+            <title>:data:reminder:impl</title>
+            <path fill="#add8e6" stroke="#000" d="M404.75-128H280v36h124.75z"/>
+            <text xml:space="preserve" x="342.38" y="-104.58" font-family="Times,serif" font-size="14" text-anchor="middle">:data:reminder:impl</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:feature:settings:impl-&gt;:data:reminder:impl</title>
+            <path fill="none" stroke="#000" d="M131.4-199.51c27.15 18.06 70.88 45.25 111.85 62.51 8.07 3.4 16.7 6.5 25.36 9.28"/>
+            <path stroke="#000" d="m269.58-131.09 8.53 6.28-10.58.42z"/>
+        </g>
+        <g class="node">
+            <title>:composeApp:core:ui</title>
+            <path fill="#add8e6" stroke="#000" d="M610.5-128h-133v36h133z"/>
+            <text xml:space="preserve" x="544" y="-104.58" font-family="Times,serif" font-size="14" text-anchor="middle">:composeApp:core:ui</text>
+        </g>
+        <g class="node">
+            <title>:core:locale</title>
+            <path fill="#add8e6" stroke="#000" d="M742.75-136h-79v36h79z"/>
+            <text xml:space="preserve" x="703.25" y="-112.58" font-family="Times,serif" font-size="14" text-anchor="middle">:core:locale</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:core:ui-&gt;:core:locale</title>
+            <path fill="none" stroke="#999" stroke-dasharray="5,2" d="M610.78-113.35c13.93-.71 28.41-1.44 41.63-2.11"/>
+            <path fill="#999" stroke="#999" d="m651.99-118.95 10.16 2.99-9.81 4z"/>
+        </g>
+        <g class="edge">
+            <title>:composeApp:core:ui-&gt;:core:ui</title>
+            <path fill="none" stroke="#999" stroke-dasharray="5,2" d="M599.13-128.49c4.08-2.51 7.94-5.34 11.37-8.51 45.69-42.25 72.01-112.37 83.94-151.79"/>
+            <path fill="#999" stroke="#999" d="m691.05-289.66 6.15-8.62.57 10.58z"/>
+        </g>
+        <g class="node">
+            <title>:data:schedule:api</title>
+            <path fill="#add8e6" stroke="#000" d="M760-82H646.5v36H760z"/>
+            <text xml:space="preserve" x="703.25" y="-58.58" font-family="Times,serif" font-size="14" text-anchor="middle">:data:schedule:api</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:core:ui-&gt;:data:schedule:api</title>
+            <path fill="none" stroke="#999" stroke-dasharray="5,2" d="M608.05-91.56c8.93 2.62 18.14 5.31 27.14 7.94"/>
+            <path fill="#999" stroke="#999" d="m635.97-87.04 8.62 6.17-10.58.55z"/>
+        </g>
+        <g class="node">
+            <title>:core:datastore</title>
+            <path fill="#add8e6" stroke="#000" d="M591.75-236h-95.5v36h95.5z"/>
+            <text xml:space="preserve" x="544" y="-212.57" font-family="Times,serif" font-size="14" text-anchor="middle">:core:datastore</text>
+        </g>
+        <g class="edge">
+            <title>:data:preferences:impl-&gt;:core:datastore</title>
+            <path fill="none" stroke="#ccc" stroke-dasharray="5,2" d="M411.52-182.43c23.87-6.46 50.45-13.65 73.43-19.87"/>
+            <path fill="#ccc" stroke="#ccc" d="m483.88-205.63 10.57.76-8.74 5.99z"/>
+        </g>
+        <g class="node">
+            <title>:data:preferences:api</title>
+            <path fill="#add8e6" stroke="#000" d="M608.25-182h-128.5v36h128.5z"/>
+            <text xml:space="preserve" x="544" y="-158.57" font-family="Times,serif" font-size="14" text-anchor="middle">:data:preferences:api</text>
+        </g>
+        <g class="edge">
+            <title>:data:preferences:impl-&gt;:data:preferences:api</title>
+            <path fill="none" stroke="#ccc" stroke-dasharray="5,2" d="M411.52-164h56.63"/>
+            <path fill="#ccc" stroke="#ccc" d="m468.02-167.5 10 3.5-10 3.5z"/>
+        </g>
+        <g class="edge">
+            <title>:data:reminder:impl-&gt;:composeApp:core:ui</title>
+            <path fill="none" stroke="#ccc" stroke-dasharray="5,2" d="M405.17-110h60.82"/>
+            <path fill="#ccc" stroke="#ccc" d="m465.83-113.5 10 3.5-10 3.5z"/>
+        </g>
+        <g class="edge">
+            <title>:data:reminder:impl-&gt;:data:schedule:api</title>
+            <path fill="none" stroke="#ccc" stroke-dasharray="5,2" d="M405.22-96.01c22.64 4.71 48.53 9.63 72.28 13.01 52.6 7.49 112.58 12.38 157.34 15.32"/>
+            <path fill="#ccc" stroke="#ccc" d="m634.9-71.18 9.76 4.13-10.2 2.85z"/>
+        </g>
+        <g class="edge">
+            <title>:data:reminder:impl-&gt;:data:preferences:api</title>
+            <path fill="none" stroke="#ccc" stroke-dasharray="5,2" d="M405.17-126.72c20-5.4 42.38-11.46 63.21-17.09"/>
+            <path fill="#ccc" stroke="#ccc" d="m467.4-147.18 10.57.77-8.74 5.99z"/>
+        </g>
+        <g class="node">
+            <title>:data:reminder:api</title>
+            <path fill="#add8e6" stroke="#000" d="M601.88-36H486.12V0h115.76z"/>
+            <text xml:space="preserve" x="544" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:data:reminder:api</text>
+        </g>
+        <g class="edge">
+            <title>:data:reminder:impl-&gt;:data:reminder:api</title>
+            <path fill="none" stroke="#ccc" stroke-dasharray="5,2" d="M383.29-91.6c31.56 14.54 75.78 34.92 109.69 50.55"/>
+            <path fill="#ccc" stroke="#ccc" d="m494.16-44.36 7.62 7.36-10.55-1z"/>
+        </g>
+    </g>
+</svg>

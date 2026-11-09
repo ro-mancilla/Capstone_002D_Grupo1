@@ -1,0 +1,146 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: backend/app/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      storage:
+        condition: service_healthy
+    # Ktor gives the application module 10 s to start by default, and on an empty database that module
+    # creates the schema and seeds ~11,000 sales. A fast machine fits; a 2-CPU CI runner does not and the
+    # app dies with "Timed out waiting for 10000 ms". Same argument as the Azure app (infra/apps.bicep).
+    command: ["-P:ktor.application.startupTimeoutMillis=180000"]
+    env_file:
+      - backend/app/.env
+    environment:
+      # Seeds the Spanish demo tenant at boot so a fresh stack is immediately login-able
+      # (credentials in README.md). Upsert-by-fixed-UUID, so restarting re-seeds harmlessly.
+      # Use `reference,unipan` to also seed the second, unit-sold-only tenant.
+      SEED_PROFILE: reference
+      # The app refuses the well-known dev JWT secret (.env.example) unless told it is local (#128).
+      JWT_ALLOW_DEV_SECRET: "true"
+      # Product photos live in the Azurite container below. The app signs upload URLs through the
+      # compose-internal host; browsers and devices upload to and read from the *published* port,
+      # which is what the public base URL names. Azurite's dev account key is public and fixed.
+      STORAGE_CONNECTION_STRING: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://storage:10000/devstoreaccount1;"
+      STORAGE_PUBLIC_BLOB_BASE_URL: http://localhost:10000/devstoreaccount1
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/worker/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      # service_started, not service_healthy: a worker that outlives an ML outage just fails the
+      # one refresh message -- no reason to hold boot for it. The nightly run is one-shot: a
+      # branch whose message fails because ML was down is not retried (RabbitMQ drops it, no DLX on
+      # the forecast queue) and waits for tomorrow's run or the GM's "Actualizar pronóstico" button.
+      ml:
+        condition: service_started
+    env_file:
+      - backend/app/.env
+    environment:
+      ML_BASE_URL: http://ml:8000
+    # scale out with: docker compose up --scale worker=N
+    deploy:
+      replicas: 2
+
+  # The forecasting service (08 §5). Serves baselines until a model has been trained locally --
+  # `cd ml && make data train` populates ml/data/artifacts, which is bind-mounted below, and a
+  # restart picks it up (/health reports model_loaded either way). No ML_API_KEY locally: the
+  # service skips auth when it is unset, and the worker sends no header when its key is blank.
+  ml:
+    build:
+      context: ml
+      # The image refuses to build without a model artifact (ml/Dockerfile). Locally the artifact
+      # is bind-mounted below instead, so a fresh clone with no trained model must still build.
+      args:
+        ALLOW_BASELINE_ONLY: "true"
+    volumes:
+      - ./ml/data/artifacts:/app/data/artifacts:ro
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: [ "CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  notifier:
+    build:
+      context: .
+      dockerfile: backend/notifier/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - backend/app/.env
+    # Aggregates job.events into debounced SSE pushes. Also competing consumers on the durable
+    # job.events queue, so it scales the same way: docker compose up --scale notifier=N
+    deploy:
+      replicas: 1
+
+  db:
+    image: postgres:17-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ecopan
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # The local broker. In Azure this container has no counterpart at all: the same images run with
+  # BROKER_BACKEND=service_bus and talk to a managed Azure Service Bus namespace instead. See
+  # infra/README.md for why that swap was worth making, and backend/data/.../messagebroker for the
+  # two implementation families it selects between.
+  rabbitmq:
+    image: rabbitmq:4.3.2-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  # Azurite, the Azure Storage emulator: the local stand-in for the storage account that holds
+  # product photos in Azure (infra/foundation.bicep). Same SDK, same SAS mechanics, same REST
+  # surface, so the backend does not know which one it is talking to. Blob only -- queues and
+  # tables are not used. `--skipApiVersionCheck` lets a client library newer than the emulator's
+  # supported API version keep working; `--loose` relaxes header validation the way the real
+  # service does. Data persists in the `azurite` volume across restarts.
+  storage:
+    image: mcr.microsoft.com/azure-storage/azurite:3.37.0
+    command: azurite-blob --blobHost 0.0.0.0 --blobPort 10000 --location /data --skipApiVersionCheck --loose
+    ports:
+      - "10000:10000"
+    volumes:
+      - azurite:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "nc -z 127.0.0.1 10000" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+  azurite:

@@ -1,0 +1,79 @@
+{
+  "_note": "Validation window, shipped model, history truncated per origin. Chooses a deployment threshold, so it must not touch the held-out window.",
+  "service_threshold_days": 42,
+  "first_length_where_model_wins": 14,
+  "curve": [
+    {
+      "history_days": 7,
+      "lgbm_mae": 107.71844396172942,
+      "lgbm_wape": 0.20964633047524692,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": -0.1265862564465847
+    },
+    {
+      "history_days": 14,
+      "lgbm_mae": 72.36515668384597,
+      "lgbm_wape": 0.14084022192545437,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.2431603357119673
+    },
+    {
+      "history_days": 21,
+      "lgbm_mae": 72.34374728212275,
+      "lgbm_wape": 0.1407985540147061,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.24338424850584944
+    },
+    {
+      "history_days": 28,
+      "lgbm_mae": 59.758480134265184,
+      "lgbm_wape": 0.11630455857102502,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.375008773341377
+    },
+    {
+      "history_days": 35,
+      "lgbm_mae": 59.758483513681455,
+      "lgbm_wape": 0.11630456514819225,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.37500873799734696
+    },
+    {
+      "history_days": 42,
+      "lgbm_mae": 59.75848208652373,
+      "lgbm_wape": 0.1163045623705957,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.37500875292344704
+    },
+    {
+      "history_days": 56,
+      "lgbm_mae": 59.75843630240887,
+      "lgbm_wape": 0.11630447326355586,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.3750092317620997
+    },
+    {
+      "history_days": 90,
+      "lgbm_mae": 59.75847865862368,
+      "lgbm_wape": 0.11630455569906721,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.37500878877455057
+    },
+    {
+      "history_days": 180,
+      "lgbm_mae": 59.75847346098273,
+      "lgbm_wape": 0.11630454558319187,
+      "cold_start_mae": 95.61491039442369,
+      "cold_start_wape": 0.1860899059220744,
+      "model_advantage_wape": 0.37500884313470134
+    }
+  ]
+}

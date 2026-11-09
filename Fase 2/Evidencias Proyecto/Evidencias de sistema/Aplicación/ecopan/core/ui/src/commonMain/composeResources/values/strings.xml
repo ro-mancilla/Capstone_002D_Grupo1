@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="switch_to_keyboard_input_cd">Cambiar a entrada de teclado</string>
+    <string name="switch_to_dial_cd">Cambiar al modo de reloj</string>
+</resources>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="310pt" height="98pt" viewBox="0 0 310 98">
+    <g class="graph" transform="translate(4 94)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-98h310V4z"/>
+        <g class="node">
+            <title>:data:preferences:impl</title>
+            <path fill="#90ee90" stroke="#000" d="M137.5-63H0v36h137.5z"/>
+            <text xml:space="preserve" x="68.75" y="-39.58" font-family="Times,serif" font-size="14" text-anchor="middle">:data:preferences:impl</text>
+        </g>
+        <g class="node">
+            <title>:core:datastore</title>
+            <path fill="#add8e6" stroke="#000" d="M285.5-90H190v36h95.5z"/>
+            <text xml:space="preserve" x="237.75" y="-66.58" font-family="Times,serif" font-size="14" text-anchor="middle">:core:datastore</text>
+        </g>
+        <g class="edge">
+            <title>:data:preferences:impl-&gt;:core:datastore</title>
+            <path fill="none" stroke="#000" d="M137.68-55.98c13.54-2.19 27.66-4.47 40.85-6.61"/>
+            <path stroke="#000" d="m177.92-66.03 10.43 1.86-9.31 5.05z"/>
+        </g>
+        <g class="node">
+            <title>:data:preferences:api</title>
+            <path fill="#add8e6" stroke="#000" d="M302-36H173.5V0H302z"/>
+            <text xml:space="preserve" x="237.75" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:data:preferences:api</text>
+        </g>
+        <g class="edge">
+            <title>:data:preferences:impl-&gt;:data:preferences:api</title>
+            <path fill="none" stroke="#000" d="M137.68-34.02c7.97 1.29 16.15 2.61 24.22 3.92"/>
+            <path stroke="#000" d="m162.39-33.57 9.31 5.05-10.43 1.86z"/>
+        </g>
+    </g>
+</svg>

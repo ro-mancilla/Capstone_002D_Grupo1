@@ -1,0 +1,184 @@
+{
+  "_note": "Walk-forward robustness study. Separate from the pre-registered test-window claim in RESULTS.md section 4: different training cuts, different windows, so these absolute numbers are NOT comparable to section 4's. Only the per-fold gain over the same-fold baseline is the claim.",
+  "reference": "baseline-swlw",
+  "per_estimator": [
+    {
+      "window": "2016-09-01",
+      "estimator": "baseline-swlw",
+      "best_iteration": NaN,
+      "mae": 86.5900907925816,
+      "rmse": 457.00555865503503,
+      "wape": 0.18436349810572028,
+      "n": 69351,
+      "mae_d1": 64.8493213666318,
+      "wape_d1": 0.18264543954791584
+    },
+    {
+      "window": "2016-09-01",
+      "estimator": "baseline-ma7",
+      "best_iteration": NaN,
+      "mae": 128.01698598358018,
+      "rmse": 574.6600368573962,
+      "wape": 0.2725676706982483,
+      "n": 69351,
+      "mae_d1": 126.47435412013758,
+      "wape_d1": 0.3562098031714696
+    },
+    {
+      "window": "2016-09-01",
+      "estimator": "lgbm",
+      "best_iteration": 14812.0,
+      "mae": 47.28316862426323,
+      "rmse": 375.38189983563564,
+      "wape": 0.10067307112511584,
+      "n": 69351,
+      "mae_d1": 36.871233807370565,
+      "wape_d1": 0.10384630962208245
+    },
+    {
+      "window": "2016-12-01",
+      "estimator": "baseline-swlw",
+      "best_iteration": NaN,
+      "mae": 190.04705466499797,
+      "rmse": 776.4244293000149,
+      "wape": 0.3408732301936348,
+      "n": 70623,
+      "mae_d1": 152.6185741381758,
+      "wape_d1": 0.3035114178920179
+    },
+    {
+      "window": "2016-12-01",
+      "estimator": "baseline-ma7",
+      "best_iteration": NaN,
+      "mae": 177.67041969627795,
+      "rmse": 655.8697170108829,
+      "wape": 0.318674182972662,
+      "n": 70623,
+      "mae_d1": 115.52272271458345,
+      "wape_d1": 0.2297391753778623
+    },
+    {
+      "window": "2016-12-01",
+      "estimator": "lgbm",
+      "best_iteration": 4521.0,
+      "mae": 120.2984272533309,
+      "rmse": 551.6123791428142,
+      "wape": 0.2157703183421621,
+      "n": 70623,
+      "mae_d1": 73.57636360536118,
+      "wape_d1": 0.14632076447643816
+    },
+    {
+      "window": "2017-03-01",
+      "estimator": "baseline-swlw",
+      "best_iteration": NaN,
+      "mae": 107.29459843904183,
+      "rmse": 447.84991000140326,
+      "wape": 0.2048676021024234,
+      "n": 70374,
+      "mae_d1": 101.30013893839852,
+      "wape_d1": 0.2019318388099793
+    },
+    {
+      "window": "2017-03-01",
+      "estimator": "baseline-ma7",
+      "best_iteration": NaN,
+      "mae": 136.7972996170901,
+      "rmse": 521.9109096143454,
+      "wape": 0.2611998661103362,
+      "n": 70374,
+      "mae_d1": 114.95495608673626,
+      "wape_d1": 0.2291513704342611
+    },
+    {
+      "window": "2017-03-01",
+      "estimator": "lgbm",
+      "best_iteration": 7919.0,
+      "mae": 67.18314246536127,
+      "rmse": 298.86377329955445,
+      "wape": 0.12827905131127093,
+      "n": 70374,
+      "mae_d1": 54.75323306314085,
+      "wape_d1": 0.10914517145879624
+    },
+    {
+      "window": "2017-05-01",
+      "estimator": "baseline-swlw",
+      "best_iteration": NaN,
+      "mae": 111.73340359027698,
+      "rmse": 440.76266655308376,
+      "wape": 0.21266690431265667,
+      "n": 71156,
+      "mae_d1": 160.49046386657645,
+      "wape_d1": 0.30374151805041233
+    },
+    {
+      "window": "2017-05-01",
+      "estimator": "baseline-ma7",
+      "best_iteration": NaN,
+      "mae": 134.58454620730421,
+      "rmse": 490.70838832092727,
+      "wape": 0.256160448805318,
+      "n": 71156,
+      "mae_d1": 121.33074596875527,
+      "wape_d1": 0.22962850302044438
+    },
+    {
+      "window": "2017-05-01",
+      "estimator": "lgbm",
+      "best_iteration": 12037.0,
+      "mae": 65.57553041018507,
+      "rmse": 283.6831089583709,
+      "wape": 0.12481267555522753,
+      "n": 71156,
+      "mae_d1": 80.3754771315402,
+      "wape_d1": 0.15211725886876523
+    }
+  ],
+  "per_window_gain": [
+    {
+      "window": "2016-09-01",
+      "best_iteration": 14812.0,
+      "baseline_wape": 0.18436349810572028,
+      "model_wape": 0.10067307112511584,
+      "wape_gain": 0.4539424985992266,
+      "mae_gain": 0.45394249859922653,
+      "baseline_wape_d1": 0.18264543954791584,
+      "model_wape_d1": 0.10384630962208245,
+      "wape_gain_d1": 0.4314322335169007
+    },
+    {
+      "window": "2016-12-01",
+      "best_iteration": 4521.0,
+      "baseline_wape": 0.3408732301936348,
+      "model_wape": 0.2157703183421621,
+      "wape_gain": 0.3670071474383816,
+      "mae_gain": 0.3670071474383816,
+      "baseline_wape_d1": 0.3035114178920179,
+      "model_wape_d1": 0.14632076447643816,
+      "wape_gain_d1": 0.5179068863613705
+    },
+    {
+      "window": "2017-03-01",
+      "best_iteration": 7919.0,
+      "baseline_wape": 0.2048676021024234,
+      "model_wape": 0.12827905131127093,
+      "wape_gain": 0.37384413155215285,
+      "mae_gain": 0.3738441315521528,
+      "baseline_wape_d1": 0.2019318388099793,
+      "model_wape_d1": 0.10914517145879624,
+      "wape_gain_d1": 0.45949498552576756
+    },
+    {
+      "window": "2017-05-01",
+      "best_iteration": 12037.0,
+      "baseline_wape": 0.21266690431265667,
+      "model_wape": 0.12481267555522753,
+      "wape_gain": 0.4131071971042021,
+      "mae_gain": 0.4131071971042021,
+      "baseline_wape_d1": 0.30374151805041233,
+      "model_wape_d1": 0.15211725886876523,
+      "wape_gain_d1": 0.4991884552196182
+    }
+  ]
+}
