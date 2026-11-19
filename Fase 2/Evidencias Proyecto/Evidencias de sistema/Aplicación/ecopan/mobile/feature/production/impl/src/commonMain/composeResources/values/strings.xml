@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="batch_entry_product_question">¿Qué estás amasando?</string>
+    <string name="batch_entry_formula_hint">Fórmula de %1$s · %2$s</string>
+    <plurals name="batch_entry_formula_materials">
+        <item quantity="one">%1$d materia prima</item>
+        <item quantity="other">%1$d materias primas</item>
+    </plurals>
+    <string name="batch_entry_no_formula_hint">%1$s no tiene fórmula · no se descuenta stock</string>
+    <string name="batch_entry_select_prompt">Elige un producto para ver su fórmula.</string>
+    <string name="batch_entry_no_products">No hay productos activos para registrar.</string>
+    <string name="batch_entry_no_formula_badge">sin fórmula</string>
+
+    <string name="batch_entry_scale_source">Peso de la masa · ingreso manual</string>
+    <string name="batch_entry_weight_ready">Listo para registrar</string>
+    <string name="batch_entry_weight_empty">Sin peso</string>
+    <string name="batch_entry_weight_unusual">Fuera del rango habitual</string>
+    <string name="batch_entry_weight_invalid">Peso no válido</string>
+    <string name="batch_entry_kg_suffix">kg</string>
+    <string name="batch_entry_backspace_key">Borrar</string>
+
+    <string name="batch_entry_decrement_title">Descuento de materias primas</string>
+    <string name="batch_entry_decrement_empty">Ingresa el peso de la masa para ver el descuento.</string>
+    <string name="batch_entry_decrement_body">Se descuenta %1$s.</string>
+    <string name="batch_entry_decrement_none">Este producto no tiene fórmula, así que no se descuenta stock.</string>
+    <string name="batch_entry_estimated_units">Aprox. %1$d unidades</string>
+
+    <string name="batch_entry_confirm_button">Registrar lote</string>
+    <string name="batch_entry_confirm_button_weight">Registrar lote · %1$s</string>
+    <string name="batch_entry_confirm_armed_button">Toca de nuevo para confirmar %1$s</string>
+
+    <string name="batch_entry_logged_title">Lote registrado · %1$s</string>
+    <string name="batch_entry_logged_note">%1$s a las %2$s. Se descontó %3$s.</string>
+    <string name="batch_entry_logged_note_no_decrement">%1$s a las %2$s. Sin fórmula, no se descontó stock.</string>
+    <string name="batch_entry_logged_dismiss_cd">Cerrar aviso</string>
+
+    <string name="batch_entry_today_header">Hoy</string>
+    <string name="batch_entry_today_total">%1$s de masa</string>
+    <string name="batch_entry_today_empty">No hay lotes registrados hoy. Los lotes aparecen aquí cuando registras una masa.</string>
+    <string name="batch_entry_stock_glance_link">Ver stock</string>
+    <string name="batch_entry_sync_pending">Pendiente</string>
+    <string name="batch_entry_sync_synced">Sincronizado</string>
+    <!-- The server refused this batch and will not be asked again. Worded as a state the
+         baker has to act on, not as an error code. -->
+    <string name="batch_entry_sync_rejected">Rechazado</string>
+    <string name="batch_entry_logged_snackbar">Lote registrado: %1$s %2$s</string>
+    <string name="batch_entry_logged_no_decrement_snackbar">Lote registrado — stock no descontado (sin fórmula)</string>
+
+
+    <string name="stock_title">Stock</string>
+    <string name="stock_subtitle">Saldos al gramo</string>
+    <string name="stock_subtitle_synced">Saldos al gramo · sincronizado %1$s</string>
+    <string name="stock_back_cd">Volver</string>
+    <!-- One: the ingredient's name (%2$s). Other: how many (%1$d). Both get both arguments. -->
+    <plurals name="stock_negative_alert">
+        <item quantity="one">%2$s quedó bajo cero. Avisa a tu gerente para que registre la compra.</item>
+        <item quantity="other">%1$d insumos quedaron bajo cero. Avisa a tu gerente para que registre la compra.</item>
+    </plurals>
+    <string name="stock_section_reorder">Por reponer · %1$d</string>
+    <string name="stock_section_ok">Con stock · %1$d</string>
+    <string name="stock_badge_negative">Revisar saldo</string>
+    <string name="stock_badge_low">Stock bajo</string>
+    <string name="stock_reorder_at">Reponer en %1$s kg</string>
+    <string name="stock_no_reorder_point">Sin punto de reposición</string>
+    <string name="stock_quantity_kg">%1$s kg</string>
+    <string name="stock_empty">Sin ingredientes registrados todavía.</string>
+
+    <string name="suggested_heading">Para mañana, %1$s</string>
+    <string name="suggested_subtitle">Ventas esperadas. No es peso de masa.</string>
+    <string name="suggested_estimator_line">%1$s · con ventas hasta ayer</string>
+    <string name="suggested_estimator_model">Modelo entrenado</string>
+    <string name="suggested_estimator_baseline">Línea base</string>
+    <string name="suggested_estimator_unknown">Estimador desconocido</string>
+    <string name="suggested_group_kg">%1$s · kg</string>
+    <string name="suggested_group_units">%1$s · unidades</string>
+    <string name="suggested_group_default_type">Productos</string>
+    <string name="suggested_kg_unit">kg</string>
+    <string name="suggested_units_unit">u.</string>
+    <string name="suggested_show_all">Ver los %1$d productos</string>
+    <string name="suggested_show_less">Ver menos</string>
+    <string name="offline_last_sync">Datos de la última sincronización, %1$s</string>
+</resources>

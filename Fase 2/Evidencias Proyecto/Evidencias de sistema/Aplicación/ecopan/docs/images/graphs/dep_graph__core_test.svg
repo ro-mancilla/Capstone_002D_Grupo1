@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="74pt" height="44pt" viewBox="0 0 74 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h73.5V4z"/>
+        <g class="node">
+            <title>:core:test</title>
+            <path fill="#90ee90" stroke="#000" d="M65.5-36H0V0h65.5z"/>
+            <text xml:space="preserve" x="32.75" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:core:test</text>
+        </g>
+    </g>
+</svg>

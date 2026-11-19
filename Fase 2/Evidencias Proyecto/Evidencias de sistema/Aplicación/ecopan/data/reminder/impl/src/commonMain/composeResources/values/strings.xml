@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="permission_denied_message">Concede el permiso de notificaciones en Configuración</string>
+
+</resources>

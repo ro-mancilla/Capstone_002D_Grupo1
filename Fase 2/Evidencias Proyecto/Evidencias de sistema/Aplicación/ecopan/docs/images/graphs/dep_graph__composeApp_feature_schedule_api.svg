@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="428pt" height="44pt" viewBox="0 0 428 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h427.75V4z"/>
+        <g class="node">
+            <title>:composeApp:feature:schedule:api</title>
+            <path fill="#90ee90" stroke="#000" d="M204.25-36H0V0h204.25z"/>
+            <text xml:space="preserve" x="102.12" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:composeApp:feature:schedule:api</text>
+        </g>
+        <g class="node">
+            <title>:composeApp:core:navigation</title>
+            <path fill="#add8e6" stroke="#000" d="M419.75-36h-179.5V0h179.5z"/>
+            <text xml:space="preserve" x="330" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:composeApp:core:navigation</text>
+        </g>
+        <g class="edge">
+            <title>:composeApp:feature:schedule:api-&gt;:composeApp:core:navigation</title>
+            <path fill="none" stroke="#000" d="M204.5-18h24.22"/>
+            <path stroke="#000" d="m228.51-21.5 10 3.5-10 3.5z"/>
+        </g>
+    </g>
+</svg>

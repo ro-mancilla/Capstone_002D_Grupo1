@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "988688206864",
+    "project_id": "ecopan-a7a45",
+    "storage_bucket": "ecopan-a7a45.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988688206864:android:51f43dfb74e5ffc58f4e95",
+        "android_client_info": {
+          "package_name": "com.f776.ecopan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "BOGUS-PLACEHOLDER-NOT-A-REAL-KEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

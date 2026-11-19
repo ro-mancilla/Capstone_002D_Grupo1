@@ -1,0 +1,10 @@
+# Merged over application.yaml by ServerTest. Booting the real module against an empty database
+# seeds the reference tenant's ~11k-sale history first, which takes about 7 s locally: too close to
+# Ktor's 10 s default module-loading timeout on a CI runner.
+ktor:
+  application:
+    startupTimeoutMillis: 60000
+
+# ServerTest boots against application.yaml's dev-secret, which the app refuses without this (#128).
+jwt:
+  allowDevSecret: "true"

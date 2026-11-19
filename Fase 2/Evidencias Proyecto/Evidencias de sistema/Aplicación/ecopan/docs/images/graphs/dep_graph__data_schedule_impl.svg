@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280pt" height="152pt" viewBox="0 0 280 152">
+    <g class="graph" transform="translate(4 148)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-152h280V4z"/>
+        <g class="node">
+            <title>:data:schedule:impl</title>
+            <path fill="#90ee90" stroke="#000" d="M122.5-90H0v36h122.5z"/>
+            <text xml:space="preserve" x="61.25" y="-66.58" font-family="Times,serif" font-size="14" text-anchor="middle">:data:schedule:impl</text>
+        </g>
+        <g class="node">
+            <title>:core:common</title>
+            <path fill="#add8e6" stroke="#000" d="M262.62-144h-94.74v36h94.74z"/>
+            <text xml:space="preserve" x="215.25" y="-120.58" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
+        </g>
+        <g class="edge">
+            <title>:data:schedule:impl-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M114.13-90.43c13.78-4.9 28.73-10.21 42.78-15.2"/>
+            <path stroke="#000" d="m155.42-108.81 10.6-.05-8.25 6.64z"/>
+        </g>
+        <g class="node">
+            <title>:core:database</title>
+            <path fill="#add8e6" stroke="#000" d="M261.88-90h-93.26v36h93.26z"/>
+            <text xml:space="preserve" x="215.25" y="-66.58" font-family="Times,serif" font-size="14" text-anchor="middle">:core:database</text>
+        </g>
+        <g class="edge">
+            <title>:data:schedule:impl-&gt;:core:database</title>
+            <path fill="none" stroke="#000" d="M122.76-72h34.29"/>
+            <path stroke="#000" d="m156.96-75.5 10 3.5-10 3.5z"/>
+        </g>
+        <g class="node">
+            <title>:data:schedule:api</title>
+            <path fill="#add8e6" stroke="#000" d="M272-36H158.5V0H272z"/>
+            <text xml:space="preserve" x="215.25" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:data:schedule:api</text>
+        </g>
+        <g class="edge">
+            <title>:data:schedule:impl-&gt;:data:schedule:api</title>
+            <path fill="none" stroke="#000" d="M114.13-53.57c12.04 4.28 24.98 8.88 37.43 13.3"/>
+            <path stroke="#000" d="m152.66-43.59 8.26 6.64-10.6-.05z"/>
+        </g>
+    </g>
+</svg>

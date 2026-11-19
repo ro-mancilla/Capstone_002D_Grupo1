@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="nav_settings_label">Ajustes</string>
+    <string name="nav_pos_label">Caja</string>
+    <string name="nav_production_label">Producción</string>
+</resources>

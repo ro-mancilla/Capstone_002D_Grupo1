@@ -1,0 +1,19 @@
+# Data is never committed. Kaggle competition data may not be redistributed, and derived parquet is
+# reproducible from `make data`. Only metrics and plots (small, and safe under any plausible licence
+# reading) enter the repository.
+data/raw/
+data/processed/
+data/artifacts/
+data/demo/
+
+# Plots ARE committed -- they are defence artifacts (plan 08 §7). This negation must come after the
+# broad ignores above or it has no effect.
+!reports/plots/
+!reports/plots/*.png
+
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/

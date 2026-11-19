@@ -1,0 +1,87 @@
+# Manual Azure deployment (plan 10 item 7's deploy.yml). Deliberately workflow_dispatch-only:
+# this stack is a demo/prototype deployment, not a continuously-delivered service, and deploys
+# cost real minutes (first PostgreSQL create is 5–10 min alone).
+#
+# Setup (once, by an owner):
+#   1. A Microsoft Entra app with a federated credential for this repo (OIDC — no stored password):
+#      https://learn.microsoft.com/azure/developer/github/connect-from-azure-openid-connect
+#      → repo secrets AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID
+#   2. Stack secrets, copied from a machine that has already deployed (infra/.env.local):
+#      → repo secrets ECOPAN_PG_PASSWORD, ECOPAN_JWT_SECRET, ECOPAN_ML_API_KEY
+#      These are REQUIRED here even though deploy.sh can generate them, because on a fresh runner
+#      the gitignored infra/.env.local cache does not exist — letting the script regenerate would
+#      rotate the database password out from under the running server on every single run.
+name: deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      location:
+        description: Azure region
+        default: brazilsouth
+        required: false
+      apps_only:
+        description: Skip the foundation (registry/db/env already exist)
+        type: boolean
+        default: false
+      ml_baseline_only:
+        description: >-
+          Build and push a deliberately BASELINE-ONLY ML image (overwrites ecopan/ml-service:latest).
+          Leave unticked normally: the model (ml/data/artifacts) is gitignored so a runner never has
+          it, and the workflow then does NOT rebuild the ML image — it re-tags the existing
+          ecopan/ml-service:latest. To ship a new model, run ./infra/deploy.sh from a machine that
+          has it (infra/README.md "ML model").
+        type: boolean
+        default: false
+
+permissions:
+  id-token: write   # OIDC federated login
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false   # never kill a half-finished infra deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: azure
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Restore stack secrets
+        run: |
+          for v in ECOPAN_PG_PASSWORD ECOPAN_JWT_SECRET ECOPAN_ML_API_KEY; do
+            [ -n "${!v}" ] || { echo "::error::repo secret $v is not set — see header comment"; exit 1; }
+          done
+          umask 077
+          cat > infra/.env.local <<EOF
+          PG_PASSWORD='${ECOPAN_PG_PASSWORD}'
+          JWT_SECRET='${ECOPAN_JWT_SECRET}'
+          ML_API_KEY='${ECOPAN_ML_API_KEY}'
+          EOF
+        env:
+          ECOPAN_PG_PASSWORD: ${{ secrets.ECOPAN_PG_PASSWORD }}
+          ECOPAN_JWT_SECRET: ${{ secrets.ECOPAN_JWT_SECRET }}
+          ECOPAN_ML_API_KEY: ${{ secrets.ECOPAN_ML_API_KEY }}
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Images build server-side via `az acr build` (see deploy.sh header), so the runner needs
+      # no Docker and no Gradle — the script is the whole deployment.
+      - name: Deploy
+        run: |
+          ARGS=(--location "${{ inputs.location }}")
+          ${{ inputs.apps_only }} && ARGS+=(--apps-only)
+          # A runner has no local catalog or photos to copy (infra/import-local.sh reads the developer's
+          # docker volumes), so CI deploys the plain reference seed.
+          ARGS+=(--no-import)
+          # A runner has no model artifact: never rebuild the ML image here unless a baseline-only
+          # one was explicitly requested, or latest would be overwritten with a model-less image.
+          if ${{ inputs.ml_baseline_only }}; then ARGS+=(--ml-baseline-only); else ARGS+=(--ml-skip-build); fi
+          ./infra/deploy.sh "${ARGS[@]}"

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="pos_category_all">Todo</string>
+    <string name="pos_price_per_kg">%1$s /kg</string>
+    <string name="pos_price_per_unit">%1$s c/u</string>
+    <string name="pos_unit_per_kg">/ kg</string>
+    <string name="pos_unit_each">c/u</string>
+    <!-- Almacén stock badge on a product tile. Informational only: it never blocks a sale. -->
+    <string name="pos_stock_low">Stock bajo</string>
+    <string name="pos_stock_out">Agotado</string>
+    <string name="pos_stock_negative">Stock negativo</string>
+    <string name="pos_stock_units_cd">%1$s: %2$d unidades según la última sincronización</string>
+    <string name="pos_stock_stale_cd">%1$s (dato de la última sincronización, sin conexión)</string>
+    <string name="pos_scale_status_connected">Balanza OK</string>
+    <string name="pos_scale_status_simulated">Balanza simulada</string>
+    <string name="pos_scale_status_manual">Ingreso manual</string>
+    <string name="pos_scale_status_disconnected">Balanza desconectada</string>
+    <!-- Re-login for a device session that died mid-shift. Phrased around the till rather than
+         the token: a cashier does not know what a device session is, only that the till stopped
+         talking to the bakery. -->
+    <string name="pos_reconnect_title">Reconectar esta caja</string>
+    <string name="pos_reconnect_body">La sesión de este dispositivo caducó. Las ventas siguen guardándose aquí y se enviarán en cuanto vuelva a conectarse.</string>
+    <string name="pos_reconnect_pending">%1$d venta(s) esperando enviarse.</string>
+    <string name="pos_reconnect_username">Usuario</string>
+    <string name="pos_reconnect_password">Contraseña</string>
+    <string name="pos_reconnect_submit">Reconectar</string>
+    <string name="pos_reconnect_cancel">Ahora no</string>
+    <string name="pos_reconnect_invalid">Usuario o contraseña incorrectos.</string>
+    <string name="pos_reconnect_offline">No se pudo contactar al servidor. Revisa la conexión.</string>
+    <string name="pos_switch_to_manual">pasar a manual</string>
+            <string name="pos_weigh_manual_hint">Balanza no disponible. Ingresa el peso.</string>
+    <string name="pos_weigh_no_reading">sin lectura</string>
+    <string name="pos_weight_kg_label">kg</string>
+    <string name="pos_weight_label">Peso</string>
+    <string name="pos_weight_entry_label">Peso (kg)</string>
+        <string name="pos_weigh_amount">Importe · %1$s/kg</string>
+    <string name="pos_add_button">Agregar</string>
+    <string name="pos_add_weight">Agregar %1$s</string>
+    <string name="pos_weigh_add_hint">Agregar se activa cuando la lectura está estable.</string>
+    <string name="pos_weigh_simulated_chip">Balanza simulada · lectura de demo</string>
+    <string name="pos_cancel_weighing">Cancelar pesaje</string>
+    <string name="pos_current_sale">Venta actual</string>
+    <plurals name="pos_line_count">
+        <item quantity="one">%1$d línea</item>
+        <item quantity="other">%1$d líneas</item>
+    </plurals>
+    <string name="pos_empty_cart_title">Sin productos en la venta</string>
+    <string name="pos_empty_cart_hint">Selecciona un producto, escanea un código o pon el pan sobre la balanza.</string>
+    <string name="pos_total_label">TOTAL</string>
+    <string name="pos_charge_button">Cobrar %1$s</string>
+    <string name="pos_void_line_cd">Anular línea</string>
+    <string name="pos_discard_sale">Descartar venta</string>
+    <string name="pos_search_placeholder">Buscar o escanear código</string>
+    <string name="pos_search_clear_cd">Limpiar búsqueda</string>
+    <string name="pos_search_empty">Ningún producto coincide con «%1$s».</string>
+    <string name="pos_qty_increase_cd">Aumentar cantidad</string>
+    <string name="pos_qty_decrease_cd">Disminuir cantidad</string>
+
+    <string name="pos_till_button_cd">Ver caja</string>
+    <string name="pos_no_active_branch_message">No hay sucursal o cajero activo en este dispositivo.</string>
+
+    <string name="pos_payment_title">Cobro</string>
+    <string name="pos_payment_total_label">TOTAL A PAGAR</string>
+    <string name="pos_payment_cancel">Cancelar</string>
+    <string name="pos_payment_method_label">MÉTODO DE PAGO</string>
+    <string name="pos_payment_method_cash">Efectivo</string>
+    <string name="pos_payment_method_card">Tarjeta</string>
+    <string name="pos_payment_method_transfer">Transferencia</string>
+    <string name="pos_payment_method_other">Otro</string>
+    <string name="pos_payment_cash_received_label">EFECTIVO RECIBIDO</string>
+    <string name="pos_payment_change_caption">VUELTO</string>
+    <string name="pos_payment_short_caption">FALTA</string>
+    <string name="pos_payment_confirm">Confirmar pago</string>
+    <string name="pos_payment_card_ready_title">TERMINAL LISTO</string>
+    <string name="pos_payment_card_ready_subtitle">Enviar %1$s al terminal</string>
+    <string name="pos_payment_send_to_terminal">Enviar al terminal</string>
+    <string name="pos_payment_authorizing">Autorizando…</string>
+    <string name="pos_payment_authorizing_hint">Sigue las instrucciones en el terminal de pago.</string>
+    <string name="pos_payment_decline_demo">Rechazar (demo)</string>
+    <string name="pos_payment_approved">Aprobado</string>
+    <string name="pos_payment_declined">Rechazado</string>
+    <string name="pos_payment_retry">Reintentar</string>
+    <string name="pos_payment_transfer_title">Pago por transferencia</string>
+    <string name="pos_payment_transfer_hint">Confirma cuando la transferencia aparezca en la app del banco. No se requieren más datos.</string>
+    <string name="pos_payment_other_title">Otro medio de pago</string>
+    <string name="pos_payment_other_hint">Registra el pago sin datos adicionales (convenio, cortesía, etc.).</string>
+
+    <string name="pos_receipt_title">Boleta</string>
+    <string name="pos_receipt_done">Nueva venta</string>
+    <string name="pos_receipt_registered">Venta registrada · %1$s</string>
+    <string name="pos_receipt_number">N.º %1$s</string>
+    <string name="pos_receipt_method_label">Método de pago</string>
+    <string name="pos_receipt_cash_label">Efectivo recibido</string>
+    <string name="pos_receipt_change_label">Vuelto</string>
+    <string name="pos_receipt_total_label">Total</string>
+    <string name="pos_receipt_thanks">Gracias por su compra</string>
+    <string name="pos_receipt_drawer_simulated">Cajón abierto · simulado, no hay cajón físico</string>
+    <string name="pos_receipt_drawer_opened">Cajón abierto</string>
+    <string name="pos_receipt_card_approved">Pago aprobado en el terminal</string>
+    <string name="pos_receipt_card_simulated">Pago aprobado · simulado, no hay terminal físico</string>
+    <string name="pos_receipt_transfer_recorded">Transferencia registrada</string>
+    <string name="pos_receipt_other_recorded">Pago registrado</string>
+    <string name="pos_receipt_preview_caption">Vista de impresión · %1$d mm</string>
+    <string name="pos_receipt_print_failed">La venta quedó registrada, pero no se pudo imprimir el comprobante.</string>
+    <string name="pos_receipt_print_failed_hint">Revisa el papel o el cable de la impresora.</string>
+    <string name="pos_receipt_reprint">Reimprimir</string>
+
+    <string name="pos_till_title">Caja del día</string>
+    <string name="pos_till_empty">Sin ventas registradas aún hoy.</string>
+    <string name="pos_till_close">Cerrar</string>
+    <string name="pos_till_summary_sales">Ventas</string>
+    <string name="pos_till_summary_total">Total</string>
+
+    <!-- Aviso de lote (spec 3d): nunca un identificador; lo desconocido se omite. -->
+    <string name="pos_notice_full">Lote de %1$s listo · %2$s</string>
+    <string name="pos_notice_product">Lote de %1$s listo</string>
+    <string name="pos_notice_branch">Lote listo en %1$s</string>
+    <string name="pos_notice_nothing">Hay un lote nuevo listo</string>
+    <string name="pos_notice_many">%1$d lotes nuevos listos</string>
+    <string name="pos_notice_mass">%1$s kg de masa</string>
+    <string name="pos_notice_plain">%1$s</string>
+    <string name="pos_notice_names_two">%1$s y %2$s</string>
+    <string name="pos_notice_names_more">%1$s, %2$s y %3$d más</string>
+    <plurals name="pos_notice_more_batches">
+        <item quantity="one">+%1$d lote más</item>
+        <item quantity="other">+%1$d lotes más</item>
+    </plurals>
+    <string name="pos_unknown_barcode_message">Código de barras no reconocido.</string>
+</resources>

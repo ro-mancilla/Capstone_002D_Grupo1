@@ -1,0 +1,60 @@
+[project]
+name = "ecopan-ml"
+version = "0.1.0"
+description = "Demand forecasting for ecopan: LightGBM over daily (branch, product_type) bakery demand, served by FastAPI."
+readme = "README.md"
+authors = [{ name = "Fernando", email = "fern.belmar@duocuc.cl" }]
+# Plan 08 §1 pins 3.12. Overridden to 3.14 on request, after verifying the whole stack imports and
+# LightGBM actually trains on 3.14.5 (see README "Python version"). The plan's caution was about
+# wheel availability, which no longer applies.
+requires-python = ">=3.14"
+dependencies = [
+    "lightgbm>=4.7.0",
+    "pandas>=3.0.0",
+    "pyarrow>=25.0.0",
+    # scikit-learn is deliberately limited to nothing at all right now: our metrics and splitter are
+    # hand-written (plan 08 §3) so they can be unit-tested against hand-computed fixtures rather
+    # than trusted. Kept as a dependency only because `eval/` cross-checks its MAE/RMSE against
+    # sklearn's in the test suite -- an independent implementation is worth more than a comment.
+    "scikit-learn>=1.9.0",
+    "matplotlib>=3.11.0",
+    "fastapi[standard]>=0.140.0",
+    "pydantic>=2.13.0",
+    "httpx>=0.28.0",
+    "pyyaml>=6.0.0",
+]
+
+[project.optional-dependencies]
+# Only needed to *download* Favorita. Kept out of the default install so the service image and CI
+# never pull them, and so `uv sync` works with no Kaggle account.
+#
+# py7zr is not optional padding: Kaggle ships this competition's tables as .7z members nested
+# inside the competition .zip, and neither Python's stdlib nor a stock macOS has a 7z decompressor.
+data = ["kaggle>=1.7.0", "py7zr>=1.0.0"]
+
+[dependency-groups]
+dev = ["ruff>=0.15.0", "pytest>=9.0.0"]
+
+[build-system]
+requires = ["uv_build>=0.11.24,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = [
+    # Ambiguous-unicode warnings. These modules deliberately use mathematical notation in their
+    # docstrings -- ŷ, ≥, ×, Σ, — -- because the explanations are meant to be read as the theory
+    # they describe. The rule exists to catch homoglyphs smuggled into *identifiers and runtime
+    # strings*, which is a real hazard; in prose documentation it would only force the notation to
+    # be spelled out in ASCII, making it harder to read for no safety gain.
+    "RUF001", # ambiguous character in a string
+    "RUF002", # ambiguous character in a docstring
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

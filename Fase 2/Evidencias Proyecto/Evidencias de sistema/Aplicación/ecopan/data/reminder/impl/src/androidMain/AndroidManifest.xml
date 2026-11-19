@@ -1,0 +1,45 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
+        <receiver
+            android:name="com.f776.ecopan.data.reminder.android.notification.ReminderBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!--
+            Must be exported: BOOT_COMPLETED is delivered by the system, i.e. from another uid,
+            and a non-exported manifest receiver is unreachable from outside the app. With
+            exported="false" this receiver never ran, so every alarm was lost on reboot.
+            Spoofing is not a concern: BOOT_COMPLETED is a protected broadcast that only the
+            system can send, and onReceive re-checks the action regardless.
+        -->
+        <receiver
+            android:name="com.f776.ecopan.data.reminder.android.boot.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

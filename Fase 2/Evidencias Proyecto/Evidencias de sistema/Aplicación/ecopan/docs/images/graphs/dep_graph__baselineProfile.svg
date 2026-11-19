@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="109pt" height="44pt" viewBox="0 0 109 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h108.75V4z"/>
+        <g class="node">
+            <title>:baselineProfile</title>
+            <path fill="#90ee90" stroke="#000" d="M100.75-36H0V0h100.75z"/>
+            <text xml:space="preserve" x="50.38" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:baselineProfile</text>
+        </g>
+    </g>
+</svg>

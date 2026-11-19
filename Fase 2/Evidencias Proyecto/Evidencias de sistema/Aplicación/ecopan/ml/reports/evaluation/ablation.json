@@ -1,0 +1,60 @@
+{
+  "_note": "Feature ablation, scored on VALIDATION. Not comparable to RESULTS.md \u00a74.2, which is the untouched test window. Running this against the test window would spend the pre-registered claim on feature selection.",
+  "full_val_mae": 57.20432599396034,
+  "variants": [
+    {
+      "variant": "full",
+      "note": "every feature the shipped model uses",
+      "n_features": 15,
+      "best_iteration": 3875,
+      "val_mae": 57.20432599396034,
+      "val_rmse": 237.82432439800183,
+      "mae_cost_of_removal": 0.0
+    },
+    {
+      "variant": "no_rolling",
+      "note": "drop rolling mean/std \u2014 keep raw lags",
+      "n_features": 12,
+      "best_iteration": 2220,
+      "val_mae": 58.89355044610305,
+      "val_rmse": 246.1830535051956,
+      "mae_cost_of_removal": 0.029529662709793302
+    },
+    {
+      "variant": "no_calendar",
+      "note": "drop dow/month/day-of-month/is_weekend",
+      "n_features": 11,
+      "best_iteration": 3866,
+      "val_mae": 68.75149983229007,
+      "val_rmse": 274.8525987449026,
+      "mae_cost_of_removal": 0.20185840209967482
+    },
+    {
+      "variant": "no_holidays",
+      "note": "drop both holiday flags",
+      "n_features": 13,
+      "best_iteration": 5535,
+      "val_mae": 56.971279055946496,
+      "val_rmse": 238.12644882436808,
+      "mae_cost_of_removal": -0.0040739390590573115
+    },
+    {
+      "variant": "lag1_only",
+      "note": "yesterday only \u2014 the leanest thing still a model",
+      "n_features": 9,
+      "best_iteration": 2878,
+      "val_mae": 68.92254294226642,
+      "val_rmse": 277.86173471183866,
+      "mae_cost_of_removal": 0.2048484401257222
+    },
+    {
+      "variant": "no_weekly_lags",
+      "note": "drop lag_7/14/28 \u2014 leave the weekly rhythm to the calendar features",
+      "n_features": 12,
+      "best_iteration": 5506,
+      "val_mae": 58.562949008807244,
+      "val_rmse": 243.87107050887346,
+      "mae_cost_of_removal": 0.02375035438736486
+    }
+  ]
+}

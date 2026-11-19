@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The shipping posture: cleartext HTTP is denied, full stop. There are no development hosts listed
+  here on purpose.
+
+  The development permission lives in the debug variant's copy of this file
+  (`src/debug/res/xml/network_security_config.xml`), which overrides this one in debug builds only.
+  A release build therefore cannot reach a plaintext backend even by accident — a stronger
+  guarantee than the allowlist of `10.0.2.2` and `localhost` that used to live here, which was a
+  permanent, shipping-configuration hole opened for a development convenience.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

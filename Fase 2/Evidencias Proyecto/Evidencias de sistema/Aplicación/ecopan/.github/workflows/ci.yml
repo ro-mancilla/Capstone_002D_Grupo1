@@ -1,0 +1,181 @@
+# CI for all four stacks (plan 10 item 7). One job per toolchain, no path filters: every job runs
+# on every PR so a cross-stack change (e.g. a backend contract the webApp consumes) can never slip
+# through a filter gap, and branch protection can require all three checks unconditionally.
+#
+# What is deliberately NOT here:
+#   - iOS compilation — Kotlin/Native Apple targets need a macOS host; the paid-minute cost is not
+#     worth it while the iOS client ships from a developer machine (README §"Known limits").
+#   - Android assembleDebug — `testAndroidHostTest` already compiles androidMain via Robolectric
+#     host tests; packaging an APK on every PR adds minutes and catches nothing extra.
+#   - Deployment — that is deploy.yml, manual by design.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # KMP clients + backend share one Gradle build, so one invocation covers both without paying
+  # configuration twice. Task list per CLAUDE.md "Commands":
+  #   test                 — root lifecycle: plain JVM/Android modules, incl. all :backend:* tests
+  #                          (:backend:data:test spins up Postgres via Testcontainers; the
+  #                          ubuntu-latest runner ships Docker)
+  #   jvmTest              — KMP modules' JVM target tests (root `test` does not reach these)
+  #   testAndroidHostTest  — :mobile:* commonTest on the Android host target (no JVM variant)
+  #   :backend:*:build     — the three service fat-builds, proving they still assemble
+  # JDK: install 17 (clients' jvmToolchain) and 21 (backend, and the JetBrains 21 that
+  # gradle/gradle-daemon-jvm.properties asks for). Gradle cannot download them from CI — foojay
+  # answers HTTP 400 — so setup-java provides them and Gradle finds them locally.
+  gradle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # :backend:app:test boots the real Ktor module, whose application.yaml defaults point at the
+    # ports docker-compose publishes (localhost:5432 postgres/postgres, localhost:5672 guest/guest)
+    # — that is a documented design choice ("the backend also runs directly against a compose-hosted
+    # db/rabbitmq with no .env at all"), so CI provides the same two services at the same ports.
+    # :backend:data:test is unaffected: it spins its own Postgres via Testcontainers on a random port.
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: ecopan
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+      rabbitmq:
+        image: rabbitmq:4.3.2-management-alpine
+        ports:
+          - 5672:5672
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping"
+          --health-interval 5s
+          --health-timeout 10s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: jetbrains
+          java-version: |
+            17
+            21
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
+      # The app provisions the Azurite photo container at boot (main.kt). It is best-effort, but
+      # against a closed port the Azure SDK's retries hold boot long enough to time out ServerTest.
+      # Same image and flags as docker-compose's `storage`; a `docker run` step because service
+      # containers cannot override the image's command.
+      - name: Start Azurite (blob)
+        run: |
+          docker run -d --name azurite -p 10000:10000 mcr.microsoft.com/azure-storage/azurite:3.37.0 \
+            azurite-blob --blobHost 0.0.0.0 --blobPort 10000 --skipApiVersionCheck --loose
+          timeout 60 bash -c 'until (echo > /dev/tcp/127.0.0.1/10000) 2>/dev/null; do sleep 1; done'
+      # --continue: one run reports every failing module instead of stopping at the first.
+      - name: Tests and backend builds
+        run: >
+          ./gradlew test jvmTest testAndroidHostTest
+          :backend:app:build :backend:worker:build :backend:notifier:build
+          --continue --console=plain
+
+      - name: Keep the test reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-reports
+          path: |
+            **/build/reports/tests/
+            **/build/test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      # Report only, no minimum. -PignoreTestFailures writes it even when a test failed, so a red run
+      # still gets its coverage; the tests above are up to date, so only failed ones run again.
+      - name: Write the coverage report
+        if: ${{ !cancelled() }}
+        run: ./gradlew :koverHtmlReport :koverXmlReport -PignoreTestFailures --continue --console=plain
+
+      - name: Keep the coverage report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: build/reports/kover/
+          if-no-files-found: error
+          retention-days: 14
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: webApp
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: webApp/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      # `build` runs vite first: its TanStack Router plugin writes src/routeTree.gen.ts (gitignored),
+      # which `tsc -b` needs on a fresh checkout.
+      - run: npm run build
+      # Must stay `npm test` (never bare vitest): the script sets
+      # NODE_OPTIONS=--no-experimental-webstorage, without which every storage/theme test fails.
+      - run: npm test
+
+  ml:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: ml
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: ml/uv.lock
+      # `make install` is `uv sync` (uv provisions Python >=3.14 itself);
+      # `make check` is lint + test — exactly what ml/README calls "what CI runs".
+      - run: make install
+      - run: make check
+
+  # The acceptance suite (scripts/acceptance/run.sh): a throwaway compose project, its own ports and
+  # volumes, the verifier's failure paths, and the SSE end to end. Never the developer's stack.
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v6
+      # One image build at a time: each backend image runs a whole cold Gradle build, and parallel ones
+      # starve this private repo's 2-CPU runner. The step's own timeout lets the log upload still run.
+      - name: Acceptance suite
+        timeout-minutes: 55
+        env:
+          ACCEPTANCE_SEQUENTIAL_BUILD: "1"
+        run: scripts/acceptance/run.sh
+      - name: Keep the service logs of a failed run
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-logs
+          path: build/acceptance-logs
+          if-no-files-found: ignore

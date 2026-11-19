@@ -1,0 +1,14 @@
+# Demo weights for the SIMULATED scale (MockScale). Not a recording of any real scale.
+#
+# One product per line:   name: grams, grams, ..., grams
+# Every value but the last is an unstable reading; the last is the stable one the till accepts.
+# Names match the product name, ignoring case. Products not listed keep the random behaviour.
+#
+# To use: copy this file to `demo-weights.txt` in the folder the till is launched from, then pick the
+# "Balanza simulada (demo)" scale driver in Settings. A name may contain colons (the weights follow
+# the last one); a repeated name keeps the later line; bad lines are skipped and logged.
+#
+# Products below are the by-weight products of the `reference` seed.
+Marraqueta: 310, 640, 880, 842
+Hallulla: 220, 410, 480, 460
+Pan Amasado: 500, 950, 1180, 1150

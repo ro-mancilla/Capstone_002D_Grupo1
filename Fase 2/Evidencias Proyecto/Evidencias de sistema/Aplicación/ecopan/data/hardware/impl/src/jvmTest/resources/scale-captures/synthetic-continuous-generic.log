@@ -1,0 +1,21 @@
+# SYNTHETIC capture log -- 04-hardware.md §4 Phase-0 deliverable.
+#
+# HONEST NOTE: this log was hand-crafted, NOT captured from physical hardware. No real serial
+# scale or substitute device was available in this development environment (Phase-0 spike NO-GO,
+# see docs/hardware/scale-protocol-notes.md). It exists purely so the SerialScale replay test
+# (plan §7, "no hardware, CI-safe") has real bytes to exercise `ScaleProtocol.feed()` against.
+#
+# Format: <ISO timestamp>\tHEX=<raw frame bytes, hex, including the CRLF delimiter>\tASCII=<frame text>
+# Frames follow the plan's continuous-generic example: "ST,GS, 1.234 kg\r\n" (ST/US = stable/
+# unstable, GS = gross weight, value in kg). Cadence ~100-120ms/frame, mimicking a device that
+# streams continuously (no poll command) while an item is placed, ramps, and settles.
+#
+# Scenario: an item is placed on the scale; it ramps unstable through a few readings, then settles
+# stable at 0.842 kg (842 g) and holds.
+2026-07-23T10:00:00.000Z	HEX=55532C47532C20302E303831206B670D0A	ASCII=US,GS, 0.081 kg\r\n
+2026-07-23T10:00:00.104Z	HEX=55532C47532C20302E343132206B670D0A	ASCII=US,GS, 0.412 kg\r\n
+2026-07-23T10:00:00.207Z	HEX=55532C47532C20302E373938206B670D0A	ASCII=US,GS, 0.798 kg\r\n
+2026-07-23T10:00:00.312Z	HEX=55532C47532C20302E383339206B670D0A	ASCII=US,GS, 0.839 kg\r\n
+2026-07-23T10:00:00.415Z	HEX=53542C47532C20302E383432206B670D0A	ASCII=ST,GS, 0.842 kg\r\n
+2026-07-23T10:00:00.520Z	HEX=53542C47532C20302E383432206B670D0A	ASCII=ST,GS, 0.842 kg\r\n
+2026-07-23T10:00:00.625Z	HEX=53542C47532C20302E383432206B670D0A	ASCII=ST,GS, 0.842 kg\r\n

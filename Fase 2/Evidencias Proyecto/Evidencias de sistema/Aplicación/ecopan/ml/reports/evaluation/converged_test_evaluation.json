@@ -1,0 +1,233 @@
+{
+  "window": {
+    "start": "2017-07-01",
+    "end": "2017-08-15"
+  },
+  "reference_baseline": "baseline-swlw",
+  "threshold": 0.1,
+  "passed": true,
+  "verdict": "PASS \u2014 lgbm-favorita vs baseline-swlw: MAE +39.0%, WAPE +39.0% (threshold \u2265 10% on both)",
+  "pooled": [
+    {
+      "estimator": "baseline-swlw",
+      "mae": 95.30473901478891,
+      "rmse": 345.15375486216516,
+      "wape": 0.1829697151341108,
+      "n": 69622,
+      "mae_improvement": 0.0,
+      "rmse_improvement": 0.0,
+      "wape_improvement": 0.0
+    },
+    {
+      "estimator": "baseline-ma7",
+      "mae": 124.87142191790677,
+      "rmse": 431.04130500074024,
+      "wape": 0.23973297375238992,
+      "n": 69622,
+      "mae_improvement": -0.3102330818882979,
+      "rmse_improvement": -0.2488385217564088,
+      "wape_improvement": -0.31023308188829773
+    },
+    {
+      "estimator": "lgbm-favorita",
+      "mae": 58.18266871603666,
+      "rmse": 212.8390426185664,
+      "wape": 0.11170133228174127,
+      "n": 69622,
+      "mae_improvement": 0.38950917533063945,
+      "rmse_improvement": 0.3833500588641655,
+      "wape_improvement": 0.38950917533063956
+    }
+  ],
+  "by_horizon": [
+    {
+      "horizon": 1,
+      "mae": 107.9630505433308,
+      "rmse": 391.5327132833055,
+      "wape": 0.17656950635236815,
+      "n": 9986,
+      "volume": 6105919.0,
+      "estimator": "baseline-swlw"
+    },
+    {
+      "horizon": 2,
+      "mae": 112.68485589150032,
+      "rmse": 413.7431715223839,
+      "wape": 0.16785645790336653,
+      "n": 9974,
+      "volume": 6695713.5,
+      "estimator": "baseline-swlw"
+    },
+    {
+      "horizon": 3,
+      "mae": 88.75093765952222,
+      "rmse": 317.9367186857249,
+      "wape": 0.1751889397457514,
+      "n": 9964,
+      "volume": 5047775.0,
+      "estimator": "baseline-swlw"
+    },
+    {
+      "horizon": 4,
+      "mae": 110.777920515247,
+      "rmse": 390.7834383959089,
+      "wape": 0.2337797132836376,
+      "n": 9947,
+      "volume": 4713445.5,
+      "estimator": "baseline-swlw"
+    },
+    {
+      "horizon": 5,
+      "mae": 95.79987583669667,
+      "rmse": 333.6903724312551,
+      "wape": 0.19805838594319455,
+      "n": 9925,
+      "volume": 4800674.0,
+      "estimator": "baseline-swlw"
+    },
+    {
+      "horizon": 6,
+      "mae": 76.33007932880342,
+      "rmse": 273.072387462382,
+      "wape": 0.1865074929912659,
+      "n": 9915,
+      "volume": 4057814.0,
+      "estimator": "baseline-swlw"
+    },
+    {
+      "horizon": 7,
+      "mae": 74.60598747564991,
+      "rmse": 262.9398475640524,
+      "wape": 0.1526728396248489,
+      "n": 9911,
+      "volume": 4843166.5,
+      "estimator": "baseline-swlw"
+    },
+    {
+      "horizon": 1,
+      "mae": 122.15190658438111,
+      "rmse": 455.32736822424704,
+      "wape": 0.19977484645960758,
+      "n": 9986,
+      "volume": 6105919.0,
+      "estimator": "baseline-ma7"
+    },
+    {
+      "horizon": 2,
+      "mae": 184.54957715542034,
+      "rmse": 644.424136382329,
+      "wape": 0.2749068460335097,
+      "n": 9974,
+      "volume": 6695713.5,
+      "estimator": "baseline-ma7"
+    },
+    {
+      "horizon": 3,
+      "mae": 85.27693994984102,
+      "rmse": 284.53649882925555,
+      "wape": 0.16833148007841775,
+      "n": 9964,
+      "volume": 5047775.0,
+      "estimator": "baseline-ma7"
+    },
+    {
+      "horizon": 4,
+      "mae": 122.79722923929336,
+      "rmse": 398.6036058351203,
+      "wape": 0.25914461031642083,
+      "n": 9947,
+      "volume": 4713445.5,
+      "estimator": "baseline-ma7"
+    },
+    {
+      "horizon": 5,
+      "mae": 117.9591298761506,
+      "rmse": 388.02467969927187,
+      "wape": 0.24387082620398134,
+      "n": 9925,
+      "volume": 4800674.0,
+      "estimator": "baseline-ma7"
+    },
+    {
+      "horizon": 6,
+      "mae": 139.1238851646402,
+      "rmse": 435.2795677984492,
+      "wape": 0.3399399982998626,
+      "n": 9915,
+      "volume": 4057814.0,
+      "estimator": "baseline-ma7"
+    },
+    {
+      "horizon": 7,
+      "mae": 102.10579767299402,
+      "rmse": 311.7346233519711,
+      "wape": 0.20894813674283436,
+      "n": 9911,
+      "volume": 4843166.5,
+      "estimator": "baseline-ma7"
+    },
+    {
+      "horizon": 1,
+      "mae": 61.75499772216754,
+      "rmse": 225.93549491931975,
+      "wape": 0.10099797484157248,
+      "n": 9986,
+      "volume": 6105919.0,
+      "estimator": "lgbm-favorita"
+    },
+    {
+      "horizon": 2,
+      "mae": 74.7476723958353,
+      "rmse": 272.699596462652,
+      "wape": 0.11134486019103616,
+      "n": 9974,
+      "volume": 6695713.5,
+      "estimator": "lgbm-favorita"
+    },
+    {
+      "horizon": 3,
+      "mae": 53.624911394218145,
+      "rmse": 193.27237180439056,
+      "wape": 0.1058523055514444,
+      "n": 9964,
+      "volume": 5047775.0,
+      "estimator": "lgbm-favorita"
+    },
+    {
+      "horizon": 4,
+      "mae": 51.26670835744816,
+      "rmse": 182.87395696653914,
+      "wape": 0.10819047988132724,
+      "n": 9947,
+      "volume": 4713445.5,
+      "estimator": "lgbm-favorita"
+    },
+    {
+      "horizon": 5,
+      "mae": 48.66640640859283,
+      "rmse": 165.31938136815165,
+      "wape": 0.10061380371068543,
+      "n": 9925,
+      "volume": 4800674.0,
+      "estimator": "lgbm-favorita"
+    },
+    {
+      "horizon": 6,
+      "mae": 52.10469238418726,
+      "rmse": 197.48115103523773,
+      "wape": 0.12731436460054593,
+      "n": 9915,
+      "volume": 4057814.0,
+      "estimator": "lgbm-favorita"
+    },
+    {
+      "horizon": 7,
+      "mae": 65.04635211989212,
+      "rmse": 233.3455522007066,
+      "wape": 0.13311011115056928,
+      "n": 9911,
+      "volume": 4843166.5,
+      "estimator": "lgbm-favorita"
+    }
+  ]
+}

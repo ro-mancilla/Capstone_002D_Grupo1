@@ -1,0 +1,149 @@
+# Release: the signed Android build and the three desktop installers, attached to one GitHub release.
+# Pushing a tag `vX.Y.Z` runs it (the tag must equal version.properties) against the backend in the
+# repository variable ECOPAN_BACKEND_URL; running it by hand takes the backend as an input and publishes
+# nothing, it only keeps the artifacts. Secrets for signing: see release-android.yml and docs/RELEASE.md.
+#
+# The macOS, Windows and Linux installers are NOT code-signed or notarised (no identity is configured).
+# Modelled on the sibling repo japanese_dictionary's tag workflow, with its deprecated actions replaced
+# by `gh release` and its per-platform builds kept.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      backend_url:
+        description: Backend the clients talk to, e.g. https://ecopan-app.azurewebsites.net
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  BACKEND_URL: ${{ inputs.backend_url || vars.ECOPAN_BACKEND_URL }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Backend URL, and tag against version.properties
+        run: |
+          [ -n "$BACKEND_URL" ] || { echo "::error::no backend: set the repository variable ECOPAN_BACKEND_URL, or pass backend_url"; exit 1; }
+          case "$BACKEND_URL" in https://*) ;; *) echo "::error::the backend must be https://, got $BACKEND_URL"; exit 1 ;; esac
+          if [ "$GITHUB_REF_TYPE" = tag ]; then
+            v="$(sed -n 's/^versionMajor=//p' version.properties).$(sed -n 's/^versionMinor=//p' version.properties).$(sed -n 's/^versionPatch=//p' version.properties)"
+            [ "$GITHUB_REF_NAME" = "v$v" ] || { echo "::error::tag $GITHUB_REF_NAME does not match version.properties ($v)"; exit 1; }
+          fi
+
+  android:
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: jetbrains
+          java-version: |
+            17
+            21
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Restore the signing key
+        run: |
+          for v in ECOPAN_KEYSTORE_BASE64 ECOPAN_KEYSTORE_PASSWORD ECOPAN_KEY_ALIAS; do
+            [ -n "${!v}" ] || { echo "::error::repo secret $v is not set"; exit 1; }
+          done
+          umask 077
+          echo "$ECOPAN_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+          echo "ECOPAN_KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+        env:
+          ECOPAN_KEYSTORE_BASE64: ${{ secrets.ECOPAN_KEYSTORE_BASE64 }}
+          ECOPAN_KEYSTORE_PASSWORD: ${{ secrets.ECOPAN_KEYSTORE_PASSWORD }}
+          ECOPAN_KEY_ALIAS: ${{ secrets.ECOPAN_KEY_ALIAS }}
+      - name: Build the signed release APK and bundle
+        run: >
+          ./gradlew :android:app:assembleRelease :android:app:bundleRelease --console=plain
+          -Pecopan.backendUrl="$BACKEND_URL" -Pecopan.devQuickLogin=false -Pecopan.requireSigning=true
+        env:
+          ECOPAN_KEYSTORE_PASSWORD: ${{ secrets.ECOPAN_KEYSTORE_PASSWORD }}
+          ECOPAN_KEY_ALIAS: ${{ secrets.ECOPAN_KEY_ALIAS }}
+          ECOPAN_KEY_PASSWORD: ${{ secrets.ECOPAN_KEY_PASSWORD }}
+      - name: Check the artifact
+        run: scripts/verify-release.sh --apk android/app/build/outputs/apk/release/app-release.apk --expect-url "$BACKEND_URL"
+      - name: Name the files
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/release/app-release.apk "dist/EcoPan-${GITHUB_REF_NAME//\//-}.apk"
+          cp android/app/build/outputs/bundle/release/app-release.aab "dist/EcoPan-${GITHUB_REF_NAME//\//-}.aab"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-android
+          path: dist/*
+          if-no-files-found: error
+      - name: Keep the R8 mapping
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-r8-mapping
+          path: android/app/build/outputs/mapping/release/mapping.txt
+      - name: Remove the keystore
+        if: ${{ always() }}
+        run: rm -f "$RUNNER_TEMP/release.jks"
+
+  desktop:
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-latest, task: packageReleaseDmg, dir: dmg, ext: dmg }
+          - { os: windows-latest, task: packageReleaseMsi, dir: msi, ext: msi }
+          - { os: ubuntu-latest, task: packageReleaseDeb, dir: deb, ext: deb }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with: { distribution: jetbrains, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build the installer
+        shell: bash
+        run: ./gradlew :jvm:app:${{ matrix.task }} --console=plain -Pecopan.backendUrl="$BACKEND_URL" -Pecopan.devQuickLogin=false
+      - name: Check the installer (macOS)
+        if: matrix.os == 'macos-latest'
+        run: scripts/verify-release.sh --dmg jvm/app/build/compose/binaries/main-release/dmg/*.dmg --expect-url "$BACKEND_URL"
+      - name: Name the file
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp jvm/app/build/compose/binaries/main-release/${{ matrix.dir }}/*.${{ matrix.ext }} "dist/EcoPan-${GITHUB_REF_NAME//\//-}.${{ matrix.ext }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.ext }}
+          path: dist/*
+          if-no-files-found: error
+
+  publish:
+    # Only for a tag push. A manual run stops after the builds and leaves the artifacts to download.
+    if: github.ref_type == 'tag'
+    needs: [android, desktop]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: dist-*
+          path: dist
+          merge-multiple: true
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ls -l dist
+          gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --title "EcoPan $GITHUB_REF_NAME" --generate-notes --verify-tag

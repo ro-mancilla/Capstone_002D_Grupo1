@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DEBUG BUILDS ONLY. Overrides `src/main`'s HTTPS-only policy for the debug variant and is never
+  packaged into a release APK, so it cannot become the shipping posture.
+
+  Cleartext is permitted unconditionally rather than for a list of hosts because the backend host
+  is a build-time setting (`-Pecopan.backendHost=`, see `:data:sync:impl`'s build script): the
+  default is `localhost` over `adb reverse`, but a staging box or another machine on the network is
+  a valid value too, and this file cannot know which. An allowlist here would mean editing XML
+  every time that changed, with a wrong guess surfacing as `UnknownServiceException: CLEARTEXT
+  communication to <host> not permitted` — which reads as a bug rather than as configuration.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

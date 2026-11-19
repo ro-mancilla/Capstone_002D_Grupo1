@@ -1,0 +1,480 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Ecopan design system — the tokens published at claude.ai/design
+   (`_ds/ecopan-design-system-1f8d6f48-399c-4537-9ab7-b59dd8e6fb99/`). That project
+   is the source of truth; everything in this block is its value, not a
+   re-interpretation. A long-form transcription of it, with a per-section note on
+   how far each client has drifted, is parked on the `docs/impeccable-design-record`
+   branch as DESIGN.md — useful background, not a build input.
+
+   Four values are corrected rather than copied, all for WCAG AA, all measured:
+
+     --peach-price   #B85F2E → #A5541F   4.45 → 5.40 on card (money text)
+     --ink-subtle    #A9A29C → #7C756F   2.52 → 4.53 on card
+     (the scale readout's source label inherits the price correction: 4.12 → 4.99)
+     --input         #E5E0D9 → #948B80   1.31 → 3.35, the 1.4.11 floor for a
+                     control boundary. Dividers keep the hairline; only the
+                     *control* border moved, since a white field on a warm page
+                     has nothing else to identify its edge.
+
+   The design system defines a light appearance only. The `.dark` block below is
+   derived, not copied: same roles, same hue families, re-stepped into the dark
+   band and re-measured. Every pair in it clears AA.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Crust — identity and every primary action. */
+  --crust: #7a4a22;
+  --crust-hover: #5a3520;
+  --crust-active: #3a2214;
+  --crust-soft: #fbf1e8;
+  --crust-line: #e8d3bc;
+
+  /* Peach — the accent, and money. `--peach-price` is for money and only money. */
+  --peach: #f6a379;
+  --peach-hover: #ee8a58;
+  --peach-price: #a5541f;
+  --peach-soft: #fff4ec;
+
+  /* Flour — the neutral ground ladder. Contrast comes from card-on-page. */
+  --flour-page: #fbf8f5;
+  --flour-card: #ffffff;
+  --flour-sunken: #f7f5f1;
+  --flour-inset: #f0ede8;
+  --flour-line: #e5e0d9;
+  --flour-line-strong: #cdc6bc;
+  --hairline: #f4f1ed;
+
+  /* Ink — 16.45 / 10.48 / 5.69 / 4.53 on a card. */
+  --ink-strong: #241e1b;
+  --ink-body: #453e3a;
+  --ink-muted: #6e6560;
+  --ink-subtle: #7c756f;
+  --ink-inverse: #ffffff;
+
+  /* Four status families. States, never decoration — and never carried by hue
+     alone: every badge and pill below holds a word. */
+  --success: #3e6b3a;
+  --success-bg: #eef5ec;
+  --success-line: #c9dec4;
+  --warning: #8a611a;
+  --warning-bg: #fff7e8;
+  --warning-line: #fbe6bc;
+  --danger: #993a25;
+  --danger-bg: #fdece8;
+  --danger-line: #f6c9bf;
+  --info: #3d5765;
+  --info-bg: #edf2f5;
+  --info-line: #c8d6de;
+
+  /* shadcn role aliases over the tokens above. */
+  --background: var(--flour-page);
+  --foreground: var(--ink-body);
+  --card: var(--flour-card);
+  --card-foreground: var(--ink-body);
+  --popover: var(--flour-card);
+  --popover-foreground: var(--ink-body);
+  --primary: var(--crust);
+  --primary-foreground: var(--ink-inverse);
+  --secondary: var(--flour-sunken);
+  --secondary-foreground: var(--ink-body);
+  --muted: var(--flour-inset);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--crust-soft);
+  --accent-foreground: var(--crust);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--ink-inverse);
+  --border: var(--flour-line);
+  --input: #948b80;
+  --ring: var(--peach-hover);
+
+  /* Categorical series palette — identity, not magnitude. The design system does
+     not define one; this is an extension, CVD-validated in both modes and >= 3:1
+     against the card. Assigned in fixed order and never cycled: a sixth series
+     folds into "otros" (see `SalesPage`'s MAX_STACK_SERIES). Slots 1-2 are
+     ember/petrol, the most colourblind-safe pair, because that is where
+     forecast-vs-actual lands. */
+  --chart-1: oklch(0.5884 0.1484 44.75); /* ember  #c25a24 */
+  --chart-2: oklch(0.5140 0.1200 243.17); /* petrol #0e6da6 */
+  --chart-3: oklch(0.6281 0.1249 87.96); /* wheat  #a8830f */
+  --chart-4: oklch(0.4898 0.1200 355.60); /* plum   #933f63 */
+  --chart-5: oklch(0.5388 0.1121 127.43); /* olive  #5c7a2b */
+
+  /* The shell. `variant="inset"` paints the outer frame `--sidebar` and the
+     content panel `--background`, so the nav column is card-white and the page
+     it frames is flour. */
+  --sidebar: var(--flour-card);
+  --sidebar-foreground: var(--ink-body);
+  --sidebar-primary: var(--crust);
+  --sidebar-primary-foreground: var(--ink-inverse);
+  --sidebar-accent: var(--crust-soft);
+  --sidebar-accent-foreground: var(--crust);
+  --sidebar-border: var(--flour-line);
+  --sidebar-ring: var(--peach-hover);
+
+  /* One geometric sans carries the whole interface; mono appears only where
+     characters must line up as data. */
+  --font-sans: "Outfit Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: var(--font-sans);
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Pill-first geometry. Controls, chips and badges are fully rounded;
+     containers are generously soft rather than sharp. */
+  --radius: 22px;
+
+  /* Flat by default: depth is fill and a hairline. Where a shadow appears it is
+     wide, soft and warm — never a dark drop, and never on a button. */
+  --shadow-color: 36 30 27;
+  --shadow-2xs: 0 0 0 1px var(--flour-line);
+  --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.04);
+  --shadow-sm: 0 2px 8px rgb(var(--shadow-color) / 0.045);
+  --shadow: 0 2px 8px rgb(var(--shadow-color) / 0.045);
+  --shadow-md: 0 6px 18px rgb(var(--shadow-color) / 0.06);
+  --shadow-lg: 0 14px 36px rgb(var(--shadow-color) / 0.08);
+  --shadow-xl: 0 26px 60px rgb(var(--shadow-color) / 0.12);
+  --shadow-2xl: 0 26px 60px rgb(var(--shadow-color) / 0.12);
+  --shadow-pressed: inset 0 1px 3px rgb(var(--shadow-color) / 0.1);
+
+  --duration-instant: 80ms;
+  --duration-fast: 140ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.22, 1);
+  --ease-in: cubic-bezier(0.5, 0, 1, 1);
+
+  /* Structure. */
+  --page-max: 1200px;
+  --prose-max: 68ch;
+  --tap-min: 44px;
+
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  --crust: #9a5f2c; /* white 5.19 — the brand stays brown in dark, not tan */
+  --crust-hover: #a56530; /* 4.66 */
+  --crust-active: #8a5528; /* 6.16 */
+  --crust-soft: #3a2c22;
+  --crust-line: #4b382a;
+
+  --peach: #e79366;
+  --peach-hover: #f0a375;
+  --peach-price: #f0a375; /* 7.81 on the dark card */
+  --peach-soft: #33261e;
+
+  --flour-page: #1e1815;
+  --flour-card: #272019;
+  --flour-sunken: #171310;
+  --flour-inset: #302821;
+  --flour-line: #3f3731;
+  --flour-line-strong: #554b43;
+  --hairline: #322b26;
+
+  --ink-strong: #f7f2ec; /* 14.44 on the dark card */
+  --ink-body: #e4dad1; /* 11.67 */
+  --ink-muted: #b2a79c; /* 6.81 */
+  --ink-subtle: #968b80; /* 4.82 */
+  --ink-inverse: #ffffff;
+
+  --success: #8fbf87;
+  --success-bg: #1e2a1c;
+  --success-line: #33452f;
+  --warning: #e0b860;
+  --warning-bg: #2e2413;
+  --warning-line: #4a3a1c;
+  --danger: #ee9a80;
+  --danger-bg: #33201b;
+  --danger-line: #52322a;
+  --info: #9fbdcd;
+  --info-bg: #1c262b;
+  --info-line: #2f3f48;
+
+  --background: var(--flour-page);
+  --foreground: var(--ink-body);
+  --card: var(--flour-card);
+  --card-foreground: var(--ink-body);
+  --popover: var(--flour-card);
+  --popover-foreground: var(--ink-body);
+  --primary: var(--crust);
+  --primary-foreground: var(--ink-inverse);
+  --secondary: var(--flour-inset);
+  --secondary-foreground: var(--ink-body);
+  --muted: var(--flour-inset);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--crust-soft);
+  --accent-foreground: #e0ae83; /* 6.75 on --crust-soft */
+  --destructive: var(--danger);
+  --destructive-foreground: #241e1b;
+  --border: var(--flour-line);
+  --input: #847567; /* 3.61 on the dark card — the 1.4.11 floor */
+  --ring: var(--peach-hover);
+
+  /* Dark is *selected*, not an automatic flip: the same five hues re-stepped into
+     the dark lightness band and re-validated against the dark card. */
+  --chart-1: oklch(0.6295 0.1704 44.83); /* ember  #d95f19 */
+  --chart-2: oklch(0.6309 0.1372 242.85); /* petrol #2891d5 */
+  --chart-3: oklch(0.6306 0.1224 88.09); /* wheat  #a88418 */
+  --chart-4: oklch(0.6298 0.1374 355.81); /* plum   #c8628c */
+  --chart-5: oklch(0.6294 0.1291 127.46); /* olive  #739739 */
+
+  --sidebar: var(--flour-card);
+  --sidebar-foreground: var(--ink-body);
+  --sidebar-primary: var(--crust);
+  --sidebar-primary-foreground: var(--ink-inverse);
+  --sidebar-accent: var(--crust-soft);
+  --sidebar-accent-foreground: #e0ae83;
+  --sidebar-border: var(--flour-line);
+  --sidebar-ring: var(--peach-hover);
+
+  /* Warm soft shadows carry almost nothing on a dark ground; the hairline does
+     the separating instead. */
+  --shadow-color: 0 0 0;
+  --shadow-2xs: 0 0 0 1px var(--flour-line);
+  --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / 0.2);
+  --shadow-sm: 0 2px 8px rgb(var(--shadow-color) / 0.24);
+  --shadow: 0 2px 8px rgb(var(--shadow-color) / 0.24);
+  --shadow-md: 0 6px 18px rgb(var(--shadow-color) / 0.3);
+  --shadow-lg: 0 14px 36px rgb(var(--shadow-color) / 0.36);
+  --shadow-xl: 0 26px 60px rgb(var(--shadow-color) / 0.44);
+  --shadow-2xl: 0 26px 60px rgb(var(--shadow-color) / 0.44);
+  --shadow-pressed: inset 0 1px 3px rgb(var(--shadow-color) / 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* The design system's own names, so a component can say what it means rather
+     than which shadcn slot it borrowed. */
+  --color-crust: var(--crust);
+  --color-crust-hover: var(--crust-hover);
+  --color-crust-active: var(--crust-active);
+  --color-crust-soft: var(--crust-soft);
+  --color-crust-line: var(--crust-line);
+  --color-peach: var(--peach);
+  --color-peach-hover: var(--peach-hover);
+  --color-peach-price: var(--peach-price);
+  --color-peach-soft: var(--peach-soft);
+  --color-flour-page: var(--flour-page);
+  --color-flour-card: var(--flour-card);
+  --color-flour-sunken: var(--flour-sunken);
+  --color-flour-inset: var(--flour-inset);
+  --color-flour-line: var(--flour-line);
+  --color-flour-line-strong: var(--flour-line-strong);
+  --color-hairline: var(--hairline);
+  --color-ink-strong: var(--ink-strong);
+  --color-ink-body: var(--ink-body);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-success-line: var(--success-line);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-line: var(--warning-line);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-line: var(--danger-line);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-line: var(--info-line);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+
+  /* 8 · 12 · 16 · 22 · 30, then the pill. */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+
+  --ease-standard: var(--ease-standard);
+  --ease-out: var(--ease-out);
+  --ease-in: var(--ease-in);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The ink ramp, applied. Headings are `ink-strong`; body copy sits one step
+     back at `ink-body`, which is `--foreground`. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--ink-strong);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.24;
+    text-wrap: balance;
+  }
+
+  /* Every figure in this app is money, a weight or a count, and all of them sit
+     in columns or change in place under live SSE updates. Tabular figures are
+     the default rather than an opt-in: proportional digits make a total visibly
+     jitter as it refreshes, and the whole system exists to make figures
+     trustworthy. */
+  table,
+  [data-slot="card-title"],
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Motion is honoured by zeroing the duration tokens, not by deleting
+     transitions — a control that snaps is still a control that responded. */
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --duration-instant: 0ms;
+      --duration-fast: 0ms;
+      --duration-base: 0ms;
+      --duration-slow: 0ms;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Type roles, from the design system's scale. One family, tracking pulled
+     tighter as size grows. */
+  .ds-display {
+    @apply text-[52px] leading-[1.1] font-semibold tracking-[-0.018em];
+    color: var(--ink-strong);
+  }
+
+  .ds-headline {
+    @apply text-[32px] leading-[1.24] font-semibold tracking-[-0.012em];
+    color: var(--ink-strong);
+  }
+
+  .page-title,
+  .ds-title {
+    @apply text-[26px] leading-[1.24] font-semibold text-balance tracking-[-0.012em];
+    color: var(--ink-strong);
+  }
+
+  .ds-subtitle {
+    @apply text-[18px] leading-[1.32] font-semibold tracking-[-0.012em];
+  }
+
+  .ds-label {
+    @apply text-[14px] leading-[1.25] font-medium tracking-[0.01em];
+  }
+
+  /* The quiet heading above a card group. */
+  .eyebrow,
+  .ds-eyebrow {
+    @apply text-[12px] leading-[1.2] font-semibold tracking-[0.01em];
+    color: var(--ink-muted);
+  }
+
+  /* Stat values and large figures. */
+  .ds-numeric {
+    @apply text-[32px] leading-[1.08] font-semibold tracking-[-0.012em];
+    color: var(--ink-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Timestamps, device ids, key/value rows — data that must align down a
+     column. Mono is for data, never an interface voice. */
+  .ds-ledger {
+    font-family: var(--font-mono);
+    @apply text-[13px] leading-[1.4];
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Money, and only money. Giving prices their own colour is what lets a
+     customer-facing figure be found without reading the label beside it. */
+  .ds-price {
+    color: var(--peach-price);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* `.font-display` predates the single-family system and is kept so existing
+     call sites keep working; under this system it is the same face, set with the
+     display tracking. */
+  .font-display {
+    font-family: var(--font-sans);
+    @apply font-semibold tracking-[-0.012em];
+  }
+
+  /* The one transition every control uses. */
+  .ds-control {
+    transition:
+      background-color var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  /* Prose caps at 68ch; the page caps at 1200px. */
+  .ds-prose {
+    max-width: var(--prose-max);
+  }
+}

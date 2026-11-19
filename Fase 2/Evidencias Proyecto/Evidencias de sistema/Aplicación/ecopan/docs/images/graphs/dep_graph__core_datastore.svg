@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104pt" height="44pt" viewBox="0 0 104 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44H99.5V4z"/>
+        <g class="node">
+            <title>:core:datastore</title>
+            <path fill="#90ee90" stroke="#000" d="M95.5-36H0V0h95.5z"/>
+            <text xml:space="preserve" x="47.75" y="-12.57" font-family="Times,serif" font-size="14" text-anchor="middle">:core:datastore</text>
+        </g>
+    </g>
+</svg>

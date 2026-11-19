@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="settings_title">Configuración</string>
+    <string name="appearance_category">Apariencia</string>
+    <string name="theme_category">Tema</string>
+    <string name="theme_label">Tema</string>
+    <string name="theme_explanation">El tema oscuro baja el brillo en el turno de madrugada.</string>
+    <string name="dynamic_color_explanation">Toma el color del fondo de pantalla del teléfono.</string>
+    <string name="theme_system">Sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="dynamic_color_label">Color dinámico</string>
+    <string name="permissions_category">Permisos</string>
+    <string name="notifications_label">Notificaciones</string>
+    <string name="alarms_label">Alarmas</string>
+    <string name="permission_ok">Permitido</string>
+    <string name="permission_missing">Sin permiso</string>
+    <string name="permission_grant_action">Permitir</string>
+    <string name="notifications_explanation">Necesario para avisar cuando un lote queda listo y cuando una materia baja del punto de reposición.</string>
+    <string name="alarms_explanation">Necesario para avisar a la hora exacta en que termina un lote.</string>
+    <string name="about_category">Acerca de</string>
+    <string name="about_app_label">Acerca de Ecopan</string>
+    <string name="about_version_label">Versión</string>
+    <string name="about_build_label">Build</string>
+    <string name="about_bakery_label">Panadería</string>
+    <string name="about_device_label">Dispositivo</string>
+    <string name="about_branch_label">Sucursal</string>
+    <string name="about_unknown_value">—</string>
+
+    <string name="rejected_category">Operaciones rechazadas</string>
+    <string name="rejected_subtitle">El servidor rechazó estas operaciones y no se reenvían solas. Reintente cuando haya corregido la causa, o descártelas.</string>
+    <string name="rejected_entity_sale">Venta</string>
+    <string name="rejected_entity_batch">Lote de producción</string>
+    <string name="rejected_entity_stock">Movimiento de stock</string>
+    <string name="rejected_entity_other">Operación</string>
+    <string name="rejected_reason">Motivo: %1$s</string>
+    <string name="rejected_reason_unknown">sin detalle del servidor</string>
+    <string name="rejected_attempts">Intentos de envío: %1$d</string>
+    <string name="rejected_retry">Reintentar</string>
+    <string name="rejected_discard">Descartar</string>
+    <string name="rejected_discard_message">La operación no se enviará nunca más. Queda registrada en el dispositivo como descartada.</string>
+    <string name="rejected_discard_confirm">Descartar operación</string>
+    <string name="rejected_cancel">Cancelar</string>
+
+    <string name="support_email" translatable="false">rockenbergdev@gmail.com</string>
+    <string name="storyset_name" translatable="false">Storyset</string>
+    <string name="storyset_url" translatable="false">https://storyset.com</string>
+    <string name="about_title">Acerca de</string>
+    <string name="contact_label">Contacto: </string>
+    <string name="illustrations_by_label">Ilustraciones por </string>
+    <string name="thanks_message">¡Gracias por usar Ecopan!</string>
+    <string name="help_message">¿Necesitas ayuda o tienes sugerencias? No dudes en contactarnos en </string>
+    <string name="close_button">Cerrar</string>
+
+    <string name="privacy_policy_title">Política de privacidad</string>
+    <string name="privacy_policy_link" translatable="false">https://rockenbergstudio-my-schedule.vercel.app/privacy.html</string>
+
+    <string name="rating_dialog_rate_button">Calificar la app</string>
+    <string name="back_cd">Atrás</string>
+
+    <string name="devices_category">Dispositivos</string>
+    <string name="devices_subtitle">Hardware conectado a esta caja.</string>
+
+    <!-- Balanza -->
+    <string name="scale_title">Balanza</string>
+    <string name="scale_mode_manual">Ingreso manual</string>
+    <string name="scale_mode_serial">Balanza serial</string>
+    <string name="scale_mode_simulated">Simulada</string>
+    <string name="scale_mode_group_cd">Cómo se ingresa el peso</string>
+    <string name="scale_brand_label">Marca de la balanza</string>
+    <string name="scale_brand_cas">CAS</string>
+    <string name="scale_brand_toledo">Toledo</string>
+    <string name="scale_brand_other">Otra balanza</string>
+    <string name="scale_summary">%1$s baudios · %2$s · %3$s</string>
+    <string name="scale_protocol_continuous">la balanza envía el peso sola</string>
+    <string name="scale_protocol_poll">la caja le pide el peso a la balanza</string>
+    <string name="scale_port_label">Puerto</string>
+    <string name="scale_port_placeholder">Elige un puerto</string>
+    <string name="scale_rescan_cd">Buscar dispositivos de nuevo</string>
+    <string name="scale_baud_label">Baudios</string>
+    <string name="scale_framing_label">Formato de bits</string>
+    <string name="scale_delimiter_label">Fin de cada lectura</string>
+    <string name="scale_poll_command_label">Comando para pedir el peso</string>
+    <string name="scale_poll_interval_label">Cada cuántos ms se pide (ms)</string>
+    <string name="scale_protocol_label">Cómo envía el peso</string>
+    <string name="scale_manual_hint">El peso se escribe a mano en cada pesaje.</string>
+    <string name="scale_draft_discarded">Descartamos los cambios sin aplicar de la balanza serial.</string>
+
+    <!-- Prueba en vivo -->
+    <string name="scale_test_title">Prueba en vivo</string>
+    <string name="scale_test_responds">La balanza responde</string>
+    <string name="scale_test_stable">estable</string>
+    <string name="scale_test_stabilizing">estabilizando</string>
+    <string name="scale_test_waiting">Esperando una lectura…</string>
+    <string name="scale_test_last_text">Último texto recibido: %1$s</string>
+    <string name="scale_test_no_text">Aún no se recibe texto.</string>
+
+    <!-- Avanzado -->
+    <string name="scale_advanced_title">Avanzado: trama y estabilidad</string>
+    <string name="scale_advanced_expand_cd">Mostrar u ocultar los ajustes avanzados</string>
+    <string name="scale_advanced_reset">Restablecer valores</string>
+    <string name="scale_frame_label">Trama del peso</string>
+    <string name="scale_units_label">Unidades y su equivalencia en gramos</string>
+    <string name="scale_stable_values_label">Marcas de peso estable</string>
+    <string name="scale_stability_count_label">Lecturas iguales (cant.)</string>
+    <string name="scale_tolerance_label">Diferencia permitida (g)</string>
+    <string name="scale_window_label">Ventana de tiempo (ms)</string>
+    <string name="scale_probe_label">Probar un texto</string>
+    <string name="scale_probe_placeholder">Pega aquí un ejemplo: ST,GS, 1.234 kg</string>
+    <string name="scale_probe_read">Se lee %1$s</string>
+    <string name="scale_probe_read_stable">Se lee %1$s · estable</string>
+    <string name="scale_probe_read_unstable">Se lee %1$s · aún no estable</string>
+    <string name="scale_probe_nothing">No se encuentra el peso en este texto.</string>
+    <string name="scale_probe_broken">Corrige la trama para poder probar.</string>
+
+    <!-- Validación -->
+    <string name="scale_error_frame_invalid">Con esta trama no se encuentra el peso. Usa "Restablecer valores" o pega un ejemplo del texto que envía tu balanza.</string>
+    <string name="scale_error_frame_groups">A la trama le falta indicar dónde está el peso o la unidad.</string>
+    <string name="scale_error_frame_slow">Esta trama es demasiado compleja y podría trabar la lectura. Simplifícala.</string>
+    <string name="scale_error_number">Ingresa un número entero entre %1$s y %2$s.</string>
+    <string name="scale_error_required">Este campo es obligatorio.</string>
+    <string name="scale_error_port">Elige el puerto de la balanza.</string>
+    <string name="scale_error_units">Escribe al menos una unidad, por ejemplo kg=1000.</string>
+    <string name="scale_error_stable_values">Escribe al menos una marca de peso estable, por ejemplo ST.</string>
+
+    <!-- Estados de la balanza -->
+    <string name="scale_chip_connecting">Conectando…</string>
+    <string name="scale_chip_connecting_body">Esperando la primera lectura (hasta 10 s).</string>
+    <string name="scale_chip_check_frame">Revisa la trama</string>
+    <string name="scale_chip_responds">Responde</string>
+    <string name="scale_chip_no_data">No recibimos datos</string>
+    <string name="scale_chip_no_data_body">El puerto %1$s abrió, pero la balanza no envió nada. Revisa que esté encendida y el cable conectado.</string>
+    <string name="scale_chip_no_data_action">Probar de nuevo</string>
+    <string name="scale_chip_port_busy">No se pudo abrir el puerto</string>
+    <string name="scale_chip_port_busy_body">Otro programa está usando %1$s. Ciérralo o elige otro puerto.</string>
+    <string name="scale_chip_port_busy_action">Buscar puertos</string>
+    <string name="scale_chip_no_ports">Sin puertos detectados</string>
+    <string name="scale_chip_no_ports_body">Conecta la balanza por USB y toca buscar de nuevo.</string>
+    <string name="scale_chip_no_ports_action">Buscar dispositivos de nuevo</string>
+    <string name="scale_chip_simulated">Simulada</string>
+    <string name="scale_chip_simulated_body">Lecturas de demostración, sin balanza física. No sirve como prueba de hardware.</string>
+
+    <!-- Barra de cambios sin aplicar -->
+    <string name="scale_bar_unapplied">Cambios sin aplicar en la balanza · la conexión se reinicia al aplicar</string>
+    <plurals name="scale_bar_hidden_errors">
+        <item quantity="one">%1$d campo por corregir en Avanzado</item>
+        <item quantity="other">%1$d campos por corregir en Avanzado</item>
+    </plurals>
+    <plurals name="scale_bar_visible_errors">
+        <item quantity="one">%1$d campo por corregir</item>
+        <item quantity="other">%1$d campos por corregir</item>
+    </plurals>
+
+    <!-- Impresora, cajón, terminal -->
+    <string name="printer_title">Impresora de boletas</string>
+    <string name="printer_paper_label">Ancho de papel</string>
+    <string name="printer_paper_58">58 mm</string>
+    <string name="printer_paper_80">80 mm</string>
+    <string name="printer_hint">Pensada para térmicas ESC/POS por USB. Aún no probada en equipos reales.</string>
+    <string name="printer_none_text">Sin impresora: la boleta se muestra en pantalla y no se imprime en papel.</string>
+    <string name="drawer_title">Cajón de dinero</string>
+    <string name="drawer_hint">Pensado para cajones RJ-11 accionados por la impresora térmica. Aún no probado en equipos reales.</string>
+    <string name="drawer_simulated_text">Cajón simulado (demo). No abre ningún cajón físico.</string>
+    <string name="drawer_via_printer_text">El cajón se abre desde la impresora: al cobrar en efectivo, la impresora lo acciona.</string>
+    <string name="drawer_via_printer_unavailable_text">El cajón se abre desde la impresora, pero no hay una impresora real: no se abrirá ningún cajón. Elige una impresora ESC/POS.</string>
+    <string name="drawer_simulated_with_printer_text">Cajón simulado (demo). No abre ningún cajón físico. Para abrirlo con la impresora, elige «Cajón vía impresora».</string>
+    <string name="terminal_title">Terminal de pago</string>
+    <string name="terminal_hint">Integración manual; los terminales integrados llegarán más adelante.</string>
+    <string name="terminal_simulated_text">No cobra tarjetas reales.</string>
+    <string name="printer_service_label">Impresora del sistema</string>
+    <string name="printer_service_default">Impresora predeterminada del sistema</string>
+    <string name="printer_service_hint">El cajón de dinero se abre desde esta misma impresora.</string>
+    <string name="device_driver_cd">Controlador de %1$s</string>
+</resources>
